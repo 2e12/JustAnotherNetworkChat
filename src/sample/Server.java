@@ -11,22 +11,26 @@ import java.util.Date;
 public class Server
 {
     ServerSocket listener;
+    JancProtocolHandler protocol;
 
-
+    //Creating Server Instance
     public static void main(String[] args) {
         Server server = new Server();
     }
+
+    //Listening for requests ("commands")
     public Server(){
+        this.protocol = new JancProtocolHandler();
         try {
             this.listener = new ServerSocket(9090);
             System.out.println("Server is running on port " + this.listener.getLocalPort());
             while (true) {
                 try (var socket = listener.accept()) {
-                    var out = new PrintWriter(socket.getOutputStream(), true);
-                    out.println(new Date().toString());
                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     String response = in.readLine();
-                    System.out.println(response);
+                    if (response != null) {
+                        this.protocol.ParseFromString(response);
+                    }
                 }
             }
         }catch (IOException e){}
