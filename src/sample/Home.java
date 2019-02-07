@@ -25,6 +25,10 @@ public class Home{
         return sceneHome;
     }
 
+    public Button getButConnect() {
+        return butConnect;
+    }
+
     public Home(){
         //Create content of the header element
         txtHeader = new Text("Just Another Network Chat");

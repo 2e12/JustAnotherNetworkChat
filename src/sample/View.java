@@ -12,13 +12,26 @@ public class View{
     public View(Controller controller, Model model){
         this.controller = controller;
         this.model = model;
-        //home = new Home();
+        home = new Home();
         chat = new Chat();
-
-        scene = chat.getSceneChat();
+        registerButtonActionHandler();
+        listenToModelChanges();
     }
 
-    public Scene getScene() {
-        return scene;
+    public Chat getChat() {
+        return chat;
+    }
+
+    public Home getHome() {
+        return home;
+    }
+
+    private void registerButtonActionHandler() {
+        home.getButConnect().setOnAction(actionEvent -> controller.handleButtonClickSideSwitch());
+    }
+
+    private void listenToModelChanges() {
+        model.changeSiteProperty().addListener((observable, oldValue, newValue) ->
+                );
     }
 }

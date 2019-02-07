@@ -1,10 +1,13 @@
 package sample;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class Chat{
@@ -14,8 +17,7 @@ public class Chat{
     private Text txtConnection;
     private VBox vbxHeader;
     private ScrollPane spPane;
-    private TilePane tpPane;
-    private Text txtMessage;
+    private VBox vbxMessages;
     private TextField txtfdActualMessage;
     private VBox vbxContent;
     private Button butSend;
@@ -30,17 +32,30 @@ public class Chat{
 
         //Create the header content
         txtHeader = new Text("chatroom:");
+        txtHeader.setFont(new Font("Arial", 35));
+        txtHeader.setFill(Color.web("#4f6367"));
         txtConnection = new Text("chatting @ " + connectedIP);
+        txtConnection.setFont(new Font("Arial", 16));
+        txtConnection.setFill(Color.web("#4f6367"));
         vbxHeader = new VBox();
         vbxHeader.getChildren().addAll(txtHeader, txtConnection);
 
 
         //Create the chat
-        txtMessage = new Text("Test");
-        tpPane = new TilePane();
-        tpPane.getChildren().addAll(txtMessage);
+        vbxMessages = new VBox();
+        vbxMessages.setPrefWidth(500);
+        vbxMessages.setStyle("-fx-background-color: #7A9E9F; ");
+        vbxMessages.setSpacing(10);
+        for (int i = 0; i < 30; i++){
+            Text myText = new Text("Hallo Welt");
+            myText.setFill(Color.web("#FFFFFF"));
+            myText.setFont(Font.font("Arial", 20));
+            myText.setWrappingWidth(500);
+            vbxMessages.getChildren().add(myText);
+        }
         spPane = new ScrollPane();
-        spPane.setContent(tpPane);
+        spPane.setMaxHeight(600);
+        spPane.setContent(vbxMessages);
 
         //Create the content of the input field
         txtfdActualMessage = new TextField();
@@ -57,6 +72,6 @@ public class Chat{
         bpPane = new BorderPane();
         bpPane.setTop(vbxHeader);
         bpPane.setCenter(vbxContent);
-        sceneChat = new Scene(bpPane);
+        sceneChat = new Scene(bpPane, 800, 950);
     }
 }
