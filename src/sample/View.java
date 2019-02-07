@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
 public class View{
     private final Controller controller;
@@ -13,16 +12,13 @@ public class View{
     public View(Controller controller, Model model){
         this.controller = controller;
         this.model = model;
-        home = new Home();
+        //home = new Home();
+        chat = new Chat();
 
-        scene = home.getSceneHome();
+        scene = chat.getSceneChat();
     }
 
     public Scene getScene() {
         return scene;
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
     }
 }

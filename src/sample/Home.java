@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class Home {
+public class Home{
     private Scene sceneHome;
     private BorderPane bpPane;
     private Text txtHeader;
@@ -21,11 +21,11 @@ public class Home {
     private HBox hbxConnect;
     private Button butConnect;
 
-    public Scene getSceneHome() {
+    public Scene getSceneHome(){
         return sceneHome;
     }
 
-    public Home() {
+    public Home(){
         //Create content of the header element
         txtHeader = new Text("Just Another Network Chat");
 
