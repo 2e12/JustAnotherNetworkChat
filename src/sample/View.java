@@ -9,11 +9,14 @@ public class View{
     private Chat chat;
     private Scene scene;
 
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
     public View(Controller controller, Model model){
         this.controller = controller;
         this.model = model;
         home = new Home();
-        chat = new Chat();
         registerButtonActionHandler();
         listenToModelChanges();
     }
@@ -28,13 +31,15 @@ public class View{
 
     private void registerButtonActionHandler() {
         home.getButConnect().setOnAction(actionEvent -> controller.handleButtonClickSideSwitch());
-        chat.getButSend().setOnAction(actionEvent -> controller.sendMessage(chat.getTxtfdActualMessage().getText(), "me"));
+        if (chat != null) {
+            chat.getButSend().setOnAction(actionEvent -> controller.sendMessage(chat.getTxtfdActualMessage().getText()));
+        }
     }
 
     private void listenToModelChanges() {
         model.changeSiteProperty().addListener((observable, oldValue, newValue) ->
                 Client.switchToScene());
         model.writtenMessageProperty().addListener((observable, oldValue, newValue) ->
-                chat.sendMessage(newValue, "me"));
+                chat.sendMessage(newValue));
     }
 }

@@ -17,7 +17,7 @@ public class ClientTest {
             var out = new PrintWriter(socket.getOutputStream(), true);
             //var out = new OutputStreamWriter(socket.getOutputStream());
 
-            out.println("lgn;gibb;sml12345");
+            out.println("lgn;ADOLF;sml123456");
             //out.flush();
             Scanner scanner = new Scanner(System.in);
 
