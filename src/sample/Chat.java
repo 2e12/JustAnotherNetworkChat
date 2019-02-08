@@ -27,6 +27,14 @@ public class Chat{
         return sceneChat;
     }
 
+    public Button getButSend() {
+        return butSend;
+    }
+
+    public TextField getTxtfdActualMessage() {
+        return txtfdActualMessage;
+    }
+
     public Chat(){
         connectedIP = "127.0.0.1";
 
@@ -43,16 +51,8 @@ public class Chat{
 
         //Create the chat
         vbxMessages = new VBox();
-        vbxMessages.setPrefWidth(500);
-        vbxMessages.setStyle("-fx-background-color: #7A9E9F; ");
-        vbxMessages.setSpacing(10);
-        for (int i = 0; i < 30; i++){
-            Text myText = new Text("Hallo Welt");
-            myText.setFill(Color.web("#FFFFFF"));
-            myText.setFont(Font.font("Arial", 20));
-            myText.setWrappingWidth(500);
-            vbxMessages.getChildren().add(myText);
-        }
+        vbxMessages.setPrefWidth(15);
+        vbxMessages.setSpacing(15);
         spPane = new ScrollPane();
         spPane.setMaxHeight(600);
         spPane.setContent(vbxMessages);
@@ -73,5 +73,16 @@ public class Chat{
         bpPane.setTop(vbxHeader);
         bpPane.setCenter(vbxContent);
         sceneChat = new Scene(bpPane, 800, 950);
+    }
+
+    public void sendMessage(String message) {
+        Text myText = new Text(message);
+        HBox myHBox = new HBox();
+        myText.setFill(Color.web("#FFFFFF"));
+        myText.setFont(Font.font("Arial", 20));
+        myText.setWrappingWidth(500);
+        myHBox.setStyle("-fx-background-color: #7A9E9F; ");
+        myHBox.getChildren().add(myText);
+        vbxMessages.getChildren().add(myHBox);
     }
 }

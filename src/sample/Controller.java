@@ -10,4 +10,13 @@ public class Controller {
     public void handleButtonClickSideSwitch() {
         model.setChangeSite(true);
     }
+
+    public void sendMessage(String message) {
+        if (message.equals("")){
+
+        }
+        else {
+            model.setWrittenMessage(message);
+        }
+    }
 }
