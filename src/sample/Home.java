@@ -44,6 +44,7 @@ public class Home{
 
         //Create the button
         butConnect = new Button("connect");
+
         //Add the button to a hbox
         hbxConnect = new HBox();
         hbxConnect.getChildren().addAll(butConnect);

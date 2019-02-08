@@ -5,17 +5,22 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Client extends Application{
-    Scene root;
+    private static Stage stage;
+    static View view;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        stage = primaryStage;
         Model model = new Model();
         Controller controller = new Controller(model);
-        View view = new View(controller, model);
-        root = view.getHome().getSceneHome();
+        view = new View(controller, model);
         primaryStage.setTitle("Just Another Network Chat");
-        primaryStage.setScene(root);
+        primaryStage.setScene(view.getHome().getSceneHome());
         primaryStage.show();
+    }
+
+    public static void switchToScene() {
+        stage.setScene(view.getChat().getSceneChat());
     }
 
     public static void main(String[] args){

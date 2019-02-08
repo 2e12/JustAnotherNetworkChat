@@ -15,7 +15,6 @@ public class View{
         home = new Home();
         chat = new Chat();
         registerButtonActionHandler();
-        listenToModelChanges();
     }
 
     public Chat getChat() {
@@ -32,6 +31,6 @@ public class View{
 
     private void listenToModelChanges() {
         model.changeSiteProperty().addListener((observable, oldValue, newValue) ->
-                );
+                Client.switchToScene());
     }
 }
