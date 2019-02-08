@@ -15,6 +15,7 @@ public class View{
         home = new Home();
         chat = new Chat();
         registerButtonActionHandler();
+        listenToModelChanges();
     }
 
     public Chat getChat() {
