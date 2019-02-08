@@ -18,7 +18,7 @@ public abstract class JancCommand {
     //Pass parameters to the parseFromString Function
     public JancCommand(String[] parts, Socket source) {
         parseFromString(parts);
-        this.sourceSocket = source;
+        setSourceSocket(source);
     }
 
     abstract void handle();
