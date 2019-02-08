@@ -1,12 +1,13 @@
 package sample;
 
+import java.io.*;
 import java.net.Socket;
 
 public class ServerClientConnection extends Thread {
 
     private Socket clientConnection;
-    private JancProtocolHandler protocol = JancProtocolHandler.getInstance();
     private String SessionKey;
+
 
     public Socket getClientConnection() {
         return clientConnection;
@@ -14,14 +15,6 @@ public class ServerClientConnection extends Thread {
 
     public void setClientConnection(Socket clientConnection) {
         this.clientConnection = clientConnection;
-    }
-
-    public JancProtocolHandler getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(JancProtocolHandler protocol) {
-        this.protocol = protocol;
     }
 
     public String getSessionKey() {
@@ -38,5 +31,24 @@ public class ServerClientConnection extends Thread {
     }
 
     public void run() {
+        boolean run = true;
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(this.clientConnection.getInputStream()));
+            while (!clientConnection.isClosed()) {
+                String response = in.readLine();
+                JancProtocolHandler.getInstance().ParseFromString(response, this.getClientConnection());
+                System.out.println(response);
+            }
+
+        } catch (IOException e) {
+            try {
+                this.clientConnection.close();
+                System.out.println("Connection lost with " + this.clientConnection.getInetAddress());
+                e.printStackTrace();
+            } catch (IOException ee) {
+
+            }
+            run = false;
+        }
     }
 }

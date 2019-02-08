@@ -22,7 +22,7 @@ public class JancProtocolHandler {
     //Map for the protocl commands
     static Map<String, Class> commands = new HashMap<>();
 
-    //All running Connection
+    //All open connections
     static List<ServerClientConnection> connections = new ArrayList<>();
 
     //Constructor. Registers Commands
@@ -33,6 +33,7 @@ public class JancProtocolHandler {
     public void putUserConnection(String username, Socket socket) {
         ServerClientConnection connection = new ServerClientConnection(socket, null);
         connections.add(connection);
+        connection.start();
     }
 
     //Parse the Command and passing the Arguments to the registerd command
