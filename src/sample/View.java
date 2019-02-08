@@ -28,13 +28,13 @@ public class View{
 
     private void registerButtonActionHandler() {
         home.getButConnect().setOnAction(actionEvent -> controller.handleButtonClickSideSwitch());
-        chat.getButSend().setOnAction(actionEvent -> controller.sendMessage(chat.getTxtfdActualMessage().getText()));
+        chat.getButSend().setOnAction(actionEvent -> controller.sendMessage(chat.getTxtfdActualMessage().getText(), "me"));
     }
 
     private void listenToModelChanges() {
         model.changeSiteProperty().addListener((observable, oldValue, newValue) ->
                 Client.switchToScene());
         model.writtenMessageProperty().addListener((observable, oldValue, newValue) ->
-                chat.sendMessage(newValue));
+                chat.sendMessage(newValue, "me"));
     }
 }
