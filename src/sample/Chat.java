@@ -81,19 +81,14 @@ public class Chat{
 
     public void sendMessage(String message, String owner) {
         if (owner.equals("me")) {
-            Date myDate = new Date();
-            Text myTime = new Text(myDate.toString());
             Text myText = new Text(message);
             VBox myVBox = new VBox();
-            VBox myTimeVBox = new VBox();
             myText.setFill(Color.web("#FFFFFF"));
             myText.setFont(Font.font("Arial", 20));
             myText.setWrappingWidth(500);
             myVBox.setStyle("-fx-background-color: #FE5F55; -fx-background-radius: 5px;");
             myVBox.getChildren().add(myText);
-            myTimeVBox.getChildren().add(myTime);
             vbxMessages.getChildren().add(myVBox);
-            vbxMessages.getChildren().add(myTimeVBox);
         } else {
             Text myText = new Text(message);
             VBox myVBox = new VBox();
@@ -104,5 +99,6 @@ public class Chat{
             myVBox.getChildren().add(myText);
             vbxMessages.getChildren().add(myVBox);
         }
+        spPane.setVvalue(100);
     }
 }
