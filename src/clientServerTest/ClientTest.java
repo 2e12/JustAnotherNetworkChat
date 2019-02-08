@@ -15,7 +15,7 @@ public class ClientTest {
 
     public static void main(String[] args) {
         try {
-            Socket socket = new Socket("192.168.52.18", 9090);
+            Socket socket = new Socket("192.168.52.18", 9981);
             var out = new PrintWriter(socket.getOutputStream(), true);
             out.println("lgn;gibb;sml12345");
             Scanner scanner = new Scanner(System.in);
