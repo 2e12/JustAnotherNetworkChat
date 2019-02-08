@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +10,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
+import java.util.Date;
 
 public class Chat{
     private Scene sceneChat;
@@ -55,6 +58,7 @@ public class Chat{
         vbxMessages.setSpacing(15);
         spPane = new ScrollPane();
         spPane.setMaxHeight(600);
+        spPane.setMinHeight(600);
         spPane.setContent(vbxMessages);
 
         //Create the content of the input field
@@ -75,14 +79,26 @@ public class Chat{
         sceneChat = new Scene(bpPane, 800, 950);
     }
 
-    public void sendMessage(String message) {
-        Text myText = new Text(message);
-        HBox myHBox = new HBox();
-        myText.setFill(Color.web("#FFFFFF"));
-        myText.setFont(Font.font("Arial", 20));
-        myText.setWrappingWidth(500);
-        myHBox.setStyle("-fx-background-color: #7A9E9F; ");
-        myHBox.getChildren().add(myText);
-        vbxMessages.getChildren().add(myHBox);
+    public void sendMessage(String message, String owner) {
+        if (owner.equals("me")) {
+            Text myText = new Text(message);
+            VBox myVBox = new VBox();
+            myText.setFill(Color.web("#FFFFFF"));
+            myText.setFont(Font.font("Arial", 20));
+            myText.setWrappingWidth(500);
+            myVBox.setStyle("-fx-background-color: #FE5F55; -fx-background-radius: 5px;");
+            myVBox.getChildren().add(myText);
+            vbxMessages.getChildren().add(myVBox);
+        } else {
+            Text myText = new Text(message);
+            VBox myVBox = new VBox();
+            myText.setFill(Color.web("#FFFFFF"));
+            myText.setFont(Font.font("Arial", 20));
+            myText.setWrappingWidth(500);
+            myVBox.setStyle("-fx-background-color: #7A9E9F; -fx-background-radius: 5px;");
+            myVBox.getChildren().add(myText);
+            vbxMessages.getChildren().add(myVBox);
+        }
+        spPane.setVvalue(100);
     }
 }
