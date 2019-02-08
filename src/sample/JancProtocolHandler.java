@@ -3,8 +3,7 @@ package sample;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class JancProtocolHandler {
 
@@ -23,8 +22,8 @@ public class JancProtocolHandler {
     //Map for the protocl commands
     static Map<String, Class> commands = new HashMap<>();
 
-    //Username and socket connection
-    static Map<String, Socket> connections = new HashMap<>();
+    //All running Connection
+    static List<ServerClientConnection> connections = new ArrayList<>();
 
     //Constructor. Registers Commands
     private JancProtocolHandler() {
@@ -32,7 +31,8 @@ public class JancProtocolHandler {
     }
 
     public void putUserConnection(String username, Socket socket) {
-        connections.put(username, socket);
+        ServerClientConnection connection = new ServerClientConnection(socket, null);
+        connections.add(connection);
     }
 
     //Parse the Command and passing the Arguments to the registerd command
@@ -44,6 +44,7 @@ public class JancProtocolHandler {
 
     private void ExecuteCommand(String[] inputParts, Socket socket) {
         try {
+            //Get from command string the command class and pass the parameters and socket connection
             Constructor constructor = JancProtocolHandler.commands.get(inputParts[0]).getConstructor(String[].class, Socket.class);
             JancCommand obj = (JancCommand) constructor.newInstance((Object) inputParts, socket);
             obj.handle();

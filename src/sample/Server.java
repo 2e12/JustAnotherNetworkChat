@@ -17,17 +17,19 @@ public class Server
         Server server = new Server();
     }
 
-    //Listening for requests ("commands")
+    //Listening for initial requests ("commands")
     public Server(){
 
         try {
             this.listener = new ServerSocket(9090);
             System.out.println("Server is running on port " + this.listener.getLocalPort());
             while (true) {
+                //Waiting for client
                 try (var socket = listener.accept()) {
                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     String response = in.readLine();
                     if (response != null) {
+                        //Pass command to the protocol handler
                         JancProtocolHandler.getInstance().ParseFromString(response, socket);
                     }
                 }
