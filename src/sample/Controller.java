@@ -12,6 +12,11 @@ public class Controller {
     }
 
     public void sendMessage(String message) {
-        model.setWrittenMessage(message);
+        if (message.equals("")){
+
+        }
+        else {
+            model.setWrittenMessage(message);
+        }
     }
 }
