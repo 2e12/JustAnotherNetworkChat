@@ -21,7 +21,7 @@ public class RequestSessionKey extends JancCommand{
 
     @Override
     void send(Socket socket) throws IOException {
-        var out = new PrintWriter(socket.getOutputStream(), true);
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         out.println("lgn;gibb;sml12345");
     }
 

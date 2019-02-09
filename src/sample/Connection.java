@@ -19,13 +19,7 @@ public class Connection {
             out = new PrintWriter(socket.getOutputStream(), true);
             out.println(MessageFormat.format("lgn;{0};{1}", uName, pWord));
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            while (!socket.isClosed()) {
-                String response = in.readLine();
-                if (response != null) {
-                    System.out.println(response);
-                }
-            }
+            Listener listener = new Listener(socket);
         }catch(IOException e){
             e.printStackTrace();
         }

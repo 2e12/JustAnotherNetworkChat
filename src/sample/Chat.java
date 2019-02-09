@@ -40,8 +40,6 @@ public class Chat{
     }
 
     public Chat(String ipAdress, String uName, String pWord){
-        connection = new Connection(ipAdress, uName, pWord);
-
         //Create the header content
         txtHeader = new Text("chatroom:");
         txtHeader.setFont(new Font("Arial", 35));
@@ -78,6 +76,8 @@ public class Chat{
         bpPane.setTop(vbxHeader);
         bpPane.setCenter(vbxContent);
         sceneChat = new Scene(bpPane, 800, 950);
+
+        connection = new Connection(ipAdress, uName, pWord);
     }
     public void sendMessage(String message) {
         connection.sendMessageToServer(message);

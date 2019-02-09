@@ -29,7 +29,7 @@ public class Server
             System.out.println("Server is running on port " + this.listener.getLocalPort());
             while (true) {
                 //Waiting for client
-                var socket = listener.accept();
+                Socket socket = listener.accept();
                 socket.setKeepAlive(true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String response = in.readLine();
