@@ -1,4 +1,4 @@
-package sample;
+package janc.backend;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,6 +33,7 @@ public class JancProtocolHandler {
     private JancProtocolHandler() {
         JancProtocolHandler.registerCommand("lgn", RequestSessionKey.class);
         JancProtocolHandler.registerCommand("msg", SendMessage.class);
+        JancProtocolHandler.registerCommand("bye", CloseConnection.class);
     }
 
     public void broadcastToAllClients(String command){

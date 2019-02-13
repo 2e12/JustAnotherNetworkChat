@@ -1,4 +1,4 @@
-package clientServerTest;
+package janc.test;
 
 import java.io.BufferedReader;
 import java.io.IOException;

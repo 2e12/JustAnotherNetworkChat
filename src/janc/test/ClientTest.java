@@ -1,10 +1,8 @@
-package clientServerTest;
+package janc.test;
 
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 import java.util.Scanner;
 
 public class ClientTest {

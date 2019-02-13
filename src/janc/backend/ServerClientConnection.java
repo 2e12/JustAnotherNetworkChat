@@ -1,4 +1,4 @@
-package sample;
+package janc.backend;
 
 import java.io.*;
 import java.net.Socket;
