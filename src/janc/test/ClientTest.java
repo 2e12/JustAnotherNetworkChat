@@ -10,12 +10,12 @@ public class ClientTest {
 
     public static void main(String[] args) {
         try {
-            Socket socket = new Socket("192.168.52.18", 9981);
+            Socket socket = new Socket("192.168.52.18", 9980);
             socket.setKeepAlive(true);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
 
-            out.println("lgn;ADOLF;sml123456");
+            out.println("lgn;Gibb;sml12345");
             //out.flush();
             Scanner scanner = new Scanner(System.in);
             ClientReciver listener = new ClientReciver(socket);
@@ -23,7 +23,7 @@ public class ClientTest {
 
             while (!socket.isClosed()) {
                 String input = scanner.nextLine();
-                out.println("msg;null;gibb;null;" + System.currentTimeMillis() + ";" + input + ";");
+                out.println("msg;null;Gibb;null;" + System.currentTimeMillis() + ";" + input + ";");
             }
 
 

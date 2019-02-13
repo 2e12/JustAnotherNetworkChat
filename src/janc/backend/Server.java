@@ -22,7 +22,7 @@ public class Server
     public Server(){
 
         try {
-            ServerSocket listener = new ServerSocket(9981);
+            ServerSocket listener = new ServerSocket(9980);
             System.out.println("Server is running on port " + listener.getLocalPort());
             while (true) {
                 //Waiting for client
@@ -32,10 +32,10 @@ public class Server
                 String response = in.readLine();
                 if (response != null) {
                     JancProtocolHandler.getInstance().ParseFromString(response, socket, null);
-
                 }
             }
         } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

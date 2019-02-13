@@ -3,6 +3,7 @@ package janc.backend;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.Random;
 
 public class RequestSessionKey extends JancCommand{
@@ -20,10 +21,19 @@ public class RequestSessionKey extends JancCommand{
         String[] parts = new String[]{"key", this.username, sessionKey};
         SendSessionKey key = new SendSessionKey(parts, this.getSourceSocket());
         try {
-            key.send(this.getSourceSocket());
-            JancProtocolHandler.getInstance().putUserConnection(this.username, this.getSourceSocket(), sessionKey);
-            System.out.println("[Login] Hello " + this.username + this.getSourceSocket().getInetAddress());
-        } catch (IOException e) {
+            User user = new User();
+            user.setUsername(this.username);
+            user.setPassword(this.password);
+            UserJDBCDao userLogin = new UserJDBCDao(ConnectionFactory.getInstance().getConnection());
+
+            if (userLogin.checkLoginCredentials(user) == loginstate.correct) {
+                key.send(this.getSourceSocket());
+                JancProtocolHandler.getInstance().putUserConnection(this.username, this.getSourceSocket(), sessionKey);
+                System.out.println("[Login] Hello " + this.username + this.getSourceSocket().getInetAddress());
+            } else {
+                getSourceSocket().close();
+            }
+        } catch (IOException | SQLException e) {
 
         }
 
