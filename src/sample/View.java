@@ -1,17 +1,10 @@
 package sample;
 
-import javafx.scene.Scene;
-
 public class View{
     private final Controller controller;
     private final Model model;
     private Home home;
     private Chat chat;
-    private Scene scene;
-
-    public void setChat(Chat chat) {
-        this.chat = chat;
-    }
 
     public View(Controller controller, Model model){
         this.controller = controller;

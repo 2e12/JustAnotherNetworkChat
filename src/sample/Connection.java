@@ -8,6 +8,11 @@ import java.text.MessageFormat;
 public class Connection {
     private Socket socket;
     private static PrintWriter out;
+    private Listener listener;
+
+    public Listener getListener() {
+        return listener;
+    }
 
     public Connection(String ipAdress, String uName, String pWord) {
         try {
@@ -16,7 +21,8 @@ public class Connection {
             out = new PrintWriter(socket.getOutputStream(), true);
             out.println(MessageFormat.format("lgn;{0};{1}", uName, pWord));
 
-            Listener listener = new Listener(socket);
+            listener = new Listener(socket);
+            listener.start();
         }catch(IOException e){
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -106,44 +107,52 @@ public class Chat{
 
     public void displayMessage(String message) {
         String[] parts = message.split(";");
-        String owner = parts[1] + ":";
-        String time = parts[2];
-        String msg = parts[3];
-        if (owner.equals(userName)) {
-            Text myText = new Text(msg);
-            Text myTime = new Text(time);
-            VBox myVBox = new VBox();
-            HBox myHBox = new HBox();
-            myText.setFill(Color.web("#FFFFFF"));
-            myText.setFont(Font.font("Arial", 20));
-            myText.setWrappingWidth(500);
-            myTime.setFont(Font.font("Arial", 12));
-            myTime.setFill(Color.web("#FFFFFF"));
-            myVBox.setStyle("-fx-background-color: #FE5F55; -fx-background-radius: 5px;");
-            myHBox.setAlignment(Pos.CENTER_RIGHT);
-            myHBox.getChildren().add(myTime);
-            myVBox.getChildren().add(myText);
-            myVBox.getChildren().add(myHBox);
-            vbxMessages.getChildren().add(myVBox);
-        } else {
-            Text myOwner = new Text(owner);
-            Text myText = new Text(msg);
-            Text myTime = new Text(time);
-            VBox myVBox = new VBox();
-            HBox myHBox = new HBox();
-            myOwner.setFont(Font.font("Arial", 16));
-            myOwner.setFill(Color.web("#FFFFFF"));
-            myText.setFill(Color.web("#FFFFFF"));
-            myText.setFont(Font.font("Arial", 20));
-            myText.setWrappingWidth(500);
-            myVBox.setStyle("-fx-background-color: #7A9E9F; -fx-background-radius: 5px;");
-            myHBox.setAlignment(Pos.CENTER_RIGHT);
-            myHBox.getChildren().add(myTime);
-            myVBox.getChildren().add(myOwner);
-            myVBox.getChildren().add(myText);
-            myVBox.getChildren().add(myHBox);
-            vbxMessages.getChildren().add(myVBox);
-        }
-        spPane.setVvalue(100);
+        Platform.runLater(() -> {
+            if (parts[0].equals("dsb")) {
+                String owner = parts[1] + ":";
+                String time = parts[2];
+                String msg = parts[3];
+                if (owner.equals(userName)) {
+                    Text myText = new Text(msg);
+                    Text myTime = new Text(time);
+                    VBox myVBox = new VBox();
+                    HBox myHBox = new HBox();
+                    myText.setFill(Color.web("#FFFFFF"));
+                    myText.setFont(Font.font("Arial", 20));
+                    myText.setWrappingWidth(500);
+                    myTime.setFont(Font.font("Arial", 12));
+                    myTime.setFill(Color.web("#FFFFFF"));
+                    myVBox.setStyle("-fx-background-color: #FE5F55; -fx-background-radius: 5px;");
+                    myHBox.setAlignment(Pos.CENTER_RIGHT);
+                    myHBox.getChildren().add(myTime);
+                    myVBox.getChildren().add(myText);
+                    myVBox.getChildren().add(myHBox);
+                    vbxMessages.getChildren().add(myVBox);
+                    spPane.setVvalue(spPane.getMaxHeight());
+                } else {
+                    Text myOwner = new Text(owner);
+                    Text myText = new Text(msg);
+                    Text myTime = new Text(time);
+                    VBox myVBox = new VBox();
+                    HBox myHBox = new HBox();
+                    myOwner.setFont(Font.font("Arial", 16));
+                    myOwner.setFill(Color.web("#FFFFFF"));
+                    myText.setFill(Color.web("#FFFFFF"));
+                    myText.setFont(Font.font("Arial", 20));
+                    myText.setWrappingWidth(500);
+                    myVBox.setStyle("-fx-background-color: #7A9E9F; -fx-background-radius: 5px;");
+                    myHBox.setAlignment(Pos.CENTER_RIGHT);
+                    myHBox.getChildren().add(myTime);
+                    myVBox.getChildren().add(myOwner);
+                    myVBox.getChildren().add(myText);
+                    myVBox.getChildren().add(myHBox);
+                    vbxMessages.getChildren().add(myVBox);
+                    spPane.setVvalue(spPane.getMaxHeight());
+                }
+
+            }else {
+                System.out.println("Other Command!");
+            }
+        });
     }
 }
