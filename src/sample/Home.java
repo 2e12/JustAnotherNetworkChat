@@ -25,6 +25,18 @@ public class Home{
         return sceneHome;
     }
 
+    public TextField getTxtfdUsername() {
+        return txtfdUsername;
+    }
+
+    public PasswordField getTxtfdPassword() {
+        return txtfdPassword;
+    }
+
+    public TextField getTxtfdAdress() {
+        return txtfdAdress;
+    }
+
     public Button getButConnect() {
         return butConnect;
     }

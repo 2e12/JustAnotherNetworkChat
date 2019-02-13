@@ -12,10 +12,13 @@ public class ClientTest {
 
     public static void main(String[] args) {
         try {
-            Socket socket = new Socket("192.168.52.18", 9981);
+            Socket socket = new Socket("192.168.1.102", 9981);
             socket.setKeepAlive(true);
-            var out = new PrintWriter(socket.getOutputStream(), true);
-            out.println("lgn;gibb;sml12345");
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            //var out = new OutputStreamWriter(socket.getOutputStream());
+
+            out.println("lgn;ADOLF;sml123456");
+            //out.flush();
             Scanner scanner = new Scanner(System.in);
 
             //while (!socket.isClosed()) {

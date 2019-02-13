@@ -20,6 +20,7 @@ public class Client extends Application{
     }
 
     public static void switchToScene() {
+        view.setChat(new Chat(view.getHome().getTxtfdAdress().getText(), view.getHome().getTxtfdUsername().getText(), view.getHome().getTxtfdPassword().getText()));
         stage.setScene(view.getChat().getSceneChat());
     }
 

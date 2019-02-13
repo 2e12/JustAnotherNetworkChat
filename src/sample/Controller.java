@@ -11,7 +11,7 @@ public class Controller {
         model.setChangeSite(true);
     }
 
-    public void sendMessage(String message, String owner) {
+    public void sendMessage(String message) {
         if (message.equals("")){
 
         }

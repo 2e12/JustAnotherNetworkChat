@@ -25,6 +25,7 @@ public class Chat{
     private VBox vbxContent;
     private Button butSend;
     private String connectedIP;
+    private Connection connection;
 
     public Scene getSceneChat() {
         return sceneChat;
@@ -38,9 +39,7 @@ public class Chat{
         return txtfdActualMessage;
     }
 
-    public Chat(){
-        connectedIP = "127.0.0.1";
-
+    public Chat(String ipAdress, String uName, String pWord){
         //Create the header content
         txtHeader = new Text("chatroom:");
         txtHeader.setFont(new Font("Arial", 35));
@@ -77,8 +76,13 @@ public class Chat{
         bpPane.setTop(vbxHeader);
         bpPane.setCenter(vbxContent);
         sceneChat = new Scene(bpPane, 800, 950);
-    }
 
+        connection = new Connection(ipAdress, uName, pWord);
+    }
+    public void sendMessage(String message) {
+        connection.sendMessageToServer(message);
+    }
+/*
     public void sendMessage(String message, String owner) {
         if (owner.equals("me")) {
             Text myText = new Text(message);
@@ -100,5 +104,5 @@ public class Chat{
             vbxMessages.getChildren().add(myVBox);
         }
         spPane.setVvalue(100);
-    }
+    } */
 }
