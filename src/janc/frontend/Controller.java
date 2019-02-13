@@ -3,7 +3,7 @@ package janc.frontend;
 public class Controller {
     private Model model;
 
-    public Controller(Model model) {
+    public Controller(Model model){
         this.model = model;
     }
 
@@ -12,9 +12,10 @@ public class Controller {
     }
 
     public void sendMessage(String message) {
-        if (message.equals("")) {
+        if (message.equals("")){
 
-        } else {
+        }
+        else {
             model.setWrittenMessage(message);
         }
     }

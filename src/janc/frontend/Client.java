@@ -3,12 +3,12 @@ package janc.frontend;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class Client extends Application {
+public class Client extends Application{
     private static Stage stage;
     static View view;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception{
         stage = primaryStage;
         Model model = new Model();
         Controller controller = new Controller(model);

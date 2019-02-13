@@ -42,7 +42,7 @@ public class ServerClientConnection extends Thread {
         } catch (IOException e) {
             try {
                 this.clientConnection.close();
-                System.out.println("Connection lost with " + this.clientConnection.getInetAddress());
+                System.out.println("ServerConnection lost with " + this.clientConnection.getInetAddress());
             } catch (IOException ee) {
 
             }

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class Listener extends Thread {
+public class Listener extends Thread{
     private Socket socket;
 
     public Socket getSocket() {
