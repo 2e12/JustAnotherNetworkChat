@@ -37,7 +37,6 @@ public class ServerClientConnection extends Thread {
             while (!clientConnection.isClosed()) {
                 String response = in.readLine();
                 JancProtocolHandler.getInstance().ParseFromString(response, this.getClientConnection());
-                System.out.println(response);
             }
 
         } catch (IOException e) {

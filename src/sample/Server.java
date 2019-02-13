@@ -12,7 +12,6 @@ import java.util.List;
 
 public class Server
 {
-    ServerSocket listener;
 
     private List<Socket> socketList = new ArrayList<Socket>();
 
@@ -25,11 +24,11 @@ public class Server
     public Server(){
 
         try {
-            this.listener = new ServerSocket(9981);
-            System.out.println("Server is running on port " + this.listener.getLocalPort());
+            ServerSocket listener = new ServerSocket(9981);
+            System.out.println("Server is running on port " + listener.getLocalPort());
             while (true) {
                 //Waiting for client
-                var socket = listener.accept();
+                Socket socket = listener.accept();
                 socket.setKeepAlive(true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String response = in.readLine();

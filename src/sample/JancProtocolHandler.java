@@ -1,5 +1,7 @@
 package sample;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
@@ -28,6 +30,17 @@ public class JancProtocolHandler {
     //Constructor. Registers Commands
     private JancProtocolHandler() {
         JancProtocolHandler.registerCommand("lgn", RequestSessionKey.class);
+        JancProtocolHandler.registerCommand("msg", SendMessage.class);
+    }
+
+    public void broadcastToAllClients(String command){
+        for(ServerClientConnection connection: connections){
+            try {
+                var out = new PrintWriter(connection.getClientConnection().getOutputStream(), true);
+                out.println(command);
+                out.close();
+            }catch (IOException e){}
+        }
     }
 
     public void putUserConnection(String username, Socket socket) {
@@ -39,7 +52,6 @@ public class JancProtocolHandler {
     //Parse the Command and passing the Arguments to the registerd command
     public void ParseFromString(String input, Socket socket) {
         String[] parts = input.split(";");
-        System.out.println(parts[0]);
         this.ExecuteCommand(parts, socket);
     }
 

@@ -15,18 +15,13 @@ public class ClientTest {
             Socket socket = new Socket("192.168.52.18", 9981);
             socket.setKeepAlive(true);
             var out = new PrintWriter(socket.getOutputStream(), true);
-            //var out = new OutputStreamWriter(socket.getOutputStream());
-
             out.println("lgn;gibb;sml12345");
-            //out.flush();
             Scanner scanner = new Scanner(System.in);
 
-
-            while (!socket.isClosed()) {
-                String input = scanner.nextLine();
-                out.println("msg;null;gibb;null;" + System.currentTimeMillis() + ";" + input + ";");
-                //out.flush();
-            }
+            //while (!socket.isClosed()) {
+            //    String input = scanner.nextLine();
+            //    out.println("msg;null;gibb;null;" + System.currentTimeMillis() + ";" + input + ";");
+            //}
 
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while (!socket.isClosed()) {
