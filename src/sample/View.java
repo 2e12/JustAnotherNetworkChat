@@ -17,6 +17,7 @@ public class View{
         this.controller = controller;
         this.model = model;
         home = new Home();
+        chat = new Chat();
         registerButtonActionHandler();
         listenToModelChanges();
     }
@@ -29,11 +30,9 @@ public class View{
         return home;
     }
 
-    private void registerButtonActionHandler() {
+    private void registerButtonActionHandler() throws NullPointerException{
         home.getButConnect().setOnAction(actionEvent -> controller.handleButtonClickSideSwitch());
-        if (chat != null) {
-            chat.getButSend().setOnAction(actionEvent -> controller.sendMessage(chat.getTxtfdActualMessage().getText()));
-        }
+        chat.getButSend().setOnAction(actionEvent -> controller.sendMessage(chat.getTxtfdActualMessage().getText()));
     }
 
     private void listenToModelChanges() {

@@ -39,7 +39,7 @@ public class Chat{
         return txtfdActualMessage;
     }
 
-    public Chat(String ipAdress, String uName, String pWord){
+    public Chat(){
         //Create the header content
         txtHeader = new Text("chatroom:");
         txtHeader.setFont(new Font("Arial", 35));
@@ -76,13 +76,17 @@ public class Chat{
         bpPane.setTop(vbxHeader);
         bpPane.setCenter(vbxContent);
         sceneChat = new Scene(bpPane, 800, 950);
-
-        connection = new Connection(ipAdress, uName, pWord);
     }
     public void sendMessage(String message) {
         connection.sendMessageToServer(message);
+        txtfdActualMessage.setText("");
     }
-/*
+
+    public void setConnection(String ipAdress, String uName, String pWord) {
+        this.connection = new Connection(ipAdress, uName, pWord);
+    }
+
+    /*
     public void sendMessage(String message, String owner) {
         if (owner.equals("me")) {
             Text myText = new Text(message);

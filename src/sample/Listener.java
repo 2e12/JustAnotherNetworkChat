@@ -5,13 +5,17 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class Listener extends Thread{
+    private Socket socket;
+
     public Listener(Socket socket) {
-        //BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        this.socket = socket;
+    }
+
+    @Override
+    public void run() {
+
         while (!socket.isClosed()) {
-            // response = in.readLine();
-            //if (response != null) {
-            //    System.out.println(response);
-            //}
+
         }
     }
 }
