@@ -1,22 +1,27 @@
-package sample;
+package janc.frontend;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.text.MessageFormat;
 
-public class Connection {
-    private Socket socket;
+public class ServerConnection {
     private static PrintWriter out;
     private Listener listener;
+    private String uName;
 
     public Listener getListener() {
         return listener;
     }
 
-    public Connection(String ipAdress, String uName, String pWord) {
+    public String getuName() {
+        return uName;
+    }
+
+    public ServerConnection(String ipAdress, String uName, String pWord) {
         try {
-            Socket socket = new Socket(ipAdress, 9981);
+            this.uName = uName;
+            Socket socket = new Socket(ipAdress, 9980);
             socket.setKeepAlive(true);
             out = new PrintWriter(socket.getOutputStream(), true);
             out.println(MessageFormat.format("lgn;{0};{1}", uName, pWord));

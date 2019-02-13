@@ -1,4 +1,4 @@
-package sample;
+package janc.frontend;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

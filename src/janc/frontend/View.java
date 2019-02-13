@@ -1,4 +1,8 @@
-package sample;
+package janc.frontend;
+
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class View{
     private final Controller controller;
@@ -25,7 +29,23 @@ public class View{
 
     private void registerButtonActionHandler() throws NullPointerException{
         home.getButConnect().setOnAction(actionEvent -> controller.handleButtonClickSideSwitch());
+        home.getSceneHome().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    controller.handleButtonClickSideSwitch();
+                }
+            }
+        });
         chat.getButSend().setOnAction(actionEvent -> controller.sendMessage(chat.getTxtfdActualMessage().getText()));
+        chat.getSceneChat().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    controller.sendMessage(chat.getTxtfdActualMessage().getText());
+                }
+            }
+        });
     }
 
     private void listenToModelChanges() {

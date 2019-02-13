@@ -1,4 +1,4 @@
-package janc.backend;
+package janc.frontend;
 
 
 import javafx.beans.property.SimpleBooleanProperty;
