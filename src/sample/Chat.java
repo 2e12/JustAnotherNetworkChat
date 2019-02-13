@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,7 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.Date;
 
 public class Chat{
     private Scene sceneChat;
@@ -23,7 +21,22 @@ public class Chat{
     private VBox vbxMessages;
     private TextField txtfdActualMessage;
     private VBox vbxContent;
+    private String userName;
+
+    public void setConnectedIP(String connectedIP) {
+        this.connectedIP = connectedIP;
+    }
+
     private Button butSend;
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setTxtConnectionText(String txt) {
+        this.txtConnection.setText(txt);
+    }
+
     private String connectedIP;
     private Connection connection;
 
@@ -39,7 +52,11 @@ public class Chat{
         return txtfdActualMessage;
     }
 
-    public Chat(String ipAdress, String uName, String pWord){
+    public String getUserName() {
+        return userName;
+    }
+
+    public Chat(){
         //Create the header content
         txtHeader = new Text("chatroom:");
         txtHeader.setFont(new Font("Arial", 35));
@@ -76,33 +93,57 @@ public class Chat{
         bpPane.setTop(vbxHeader);
         bpPane.setCenter(vbxContent);
         sceneChat = new Scene(bpPane, 800, 950);
+    }
+    public void sendMessage(String message, String uName) {
+        connection.sendMessageToServer(message, uName);
+        txtfdActualMessage.setText("");
+    }
 
-        connection = new Connection(ipAdress, uName, pWord);
+    public void setConnection(String ipAdress, String uName, String pWord) {
+        this.connection = new Connection(ipAdress, uName, pWord);
     }
-    public void sendMessage(String message) {
-        connection.sendMessageToServer(message);
-    }
-/*
-    public void sendMessage(String message, String owner) {
-        if (owner.equals("me")) {
-            Text myText = new Text(message);
+
+
+    public void displayMessage(String message) {
+        String[] parts = message.split(";");
+        String owner = parts[1] + ":";
+        String time = parts[2];
+        String msg = parts[3];
+        if (owner.equals(userName)) {
+            Text myText = new Text(msg);
+            Text myTime = new Text(time);
             VBox myVBox = new VBox();
+            HBox myHBox = new HBox();
             myText.setFill(Color.web("#FFFFFF"));
             myText.setFont(Font.font("Arial", 20));
             myText.setWrappingWidth(500);
+            myTime.setFont(Font.font("Arial", 12));
+            myTime.setFill(Color.web("#FFFFFF"));
             myVBox.setStyle("-fx-background-color: #FE5F55; -fx-background-radius: 5px;");
+            myHBox.setAlignment(Pos.CENTER_RIGHT);
+            myHBox.getChildren().add(myTime);
             myVBox.getChildren().add(myText);
+            myVBox.getChildren().add(myHBox);
             vbxMessages.getChildren().add(myVBox);
         } else {
-            Text myText = new Text(message);
+            Text myOwner = new Text(owner);
+            Text myText = new Text(msg);
+            Text myTime = new Text(time);
             VBox myVBox = new VBox();
+            HBox myHBox = new HBox();
+            myOwner.setFont(Font.font("Arial", 16));
+            myOwner.setFill(Color.web("#FFFFFF"));
             myText.setFill(Color.web("#FFFFFF"));
             myText.setFont(Font.font("Arial", 20));
             myText.setWrappingWidth(500);
             myVBox.setStyle("-fx-background-color: #7A9E9F; -fx-background-radius: 5px;");
+            myHBox.setAlignment(Pos.CENTER_RIGHT);
+            myHBox.getChildren().add(myTime);
+            myVBox.getChildren().add(myOwner);
             myVBox.getChildren().add(myText);
+            myVBox.getChildren().add(myHBox);
             vbxMessages.getChildren().add(myVBox);
         }
         spPane.setVvalue(100);
-    } */
+    }
 }

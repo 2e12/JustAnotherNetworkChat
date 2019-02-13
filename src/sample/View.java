@@ -17,6 +17,7 @@ public class View{
         this.controller = controller;
         this.model = model;
         home = new Home();
+        chat = new Chat();
         registerButtonActionHandler();
         listenToModelChanges();
     }
@@ -29,17 +30,17 @@ public class View{
         return home;
     }
 
-    private void registerButtonActionHandler() {
+    private void registerButtonActionHandler() throws NullPointerException{
         home.getButConnect().setOnAction(actionEvent -> controller.handleButtonClickSideSwitch());
-        if (chat != null) {
-            chat.getButSend().setOnAction(actionEvent -> controller.sendMessage(chat.getTxtfdActualMessage().getText()));
-        }
+        chat.getButSend().setOnAction(actionEvent -> controller.sendMessage(chat.getTxtfdActualMessage().getText()));
     }
 
     private void listenToModelChanges() {
         model.changeSiteProperty().addListener((observable, oldValue, newValue) ->
                 Client.switchToScene());
         model.writtenMessageProperty().addListener((observable, oldValue, newValue) ->
-                chat.sendMessage(newValue));
+                chat.sendMessage(newValue, chat.getUserName()));
+        model.outputProperty().addListener((observable, oldValue, newValue) ->
+                chat.displayMessage(newValue));
     }
 }

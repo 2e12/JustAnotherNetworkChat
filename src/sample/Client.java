@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Client extends Application{
@@ -20,11 +19,14 @@ public class Client extends Application{
     }
 
     public static void switchToScene() {
-        view.setChat(new Chat(view.getHome().getTxtfdAdress().getText(), view.getHome().getTxtfdUsername().getText(), view.getHome().getTxtfdPassword().getText()));
         stage.setScene(view.getChat().getSceneChat());
+        view.getChat().setUserName(view.getHome().getTxtfdUsername().getText());
+        view.getChat().setConnectedIP(view.getHome().getTxtfdAdress().getText());
+        view.getChat().setTxtConnectionText("chatting @ " + view.getHome().getTxtfdAdress().getText());
+        view.getChat().setConnection(view.getHome().getTxtfdAdress().getText(), view.getHome().getTxtfdUsername().getText(), view.getHome().getTxtfdPassword().getText());
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
 }

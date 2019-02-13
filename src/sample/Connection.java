@@ -1,12 +1,9 @@
 package sample;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.text.MessageFormat;
-import java.util.Scanner;
 
 public class Connection {
     private Socket socket;
@@ -25,8 +22,9 @@ public class Connection {
         }
 
     }
-    public static void sendMessageToServer(String msg) {
+
+    public static void sendMessageToServer(String msg, String uName) {
         String input = msg;
-        out.println("msg;null;gibb;null;" + System.currentTimeMillis() + ";" + input + ";");
+        out.println("msg;null;" + uName + ";null;" + System.currentTimeMillis() + ";" + input + ";");
     }
 }
