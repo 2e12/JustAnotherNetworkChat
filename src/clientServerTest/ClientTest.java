@@ -12,7 +12,7 @@ public class ClientTest {
 
     public static void main(String[] args) {
         try {
-            Socket socket = new Socket("192.168.1.102", 9981);
+            Socket socket = new Socket("192.168.52.18", 9981);
             socket.setKeepAlive(true);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             //var out = new OutputStreamWriter(socket.getOutputStream());
