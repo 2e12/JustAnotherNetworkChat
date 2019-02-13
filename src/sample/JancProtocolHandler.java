@@ -38,7 +38,7 @@ public class JancProtocolHandler {
             try {
                 var out = new PrintWriter(connection.getClientConnection().getOutputStream(), true);
                 out.println(command);
-                out.close();
+                //out.close();
             }catch (IOException e){}
         }
     }

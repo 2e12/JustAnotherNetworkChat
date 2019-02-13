@@ -33,10 +33,7 @@ public class Server
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String response = in.readLine();
                 if (response != null) {
-                    //Pass command to the protocol handler
                     JancProtocolHandler.getInstance().ParseFromString(response, socket);
-                    //new ServerClientConnection(socket, null).start();
-                    //socketList.add(socket);
 
                 }
             }

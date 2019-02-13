@@ -24,7 +24,7 @@ public class ClientReciver extends Thread{
                 }
             }
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 }
