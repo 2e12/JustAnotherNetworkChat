@@ -40,5 +40,7 @@ public class View{
                 Client.switchToScene());
         model.writtenMessageProperty().addListener((observable, oldValue, newValue) ->
                 chat.sendMessage(newValue, chat.getUserName()));
+        model.outputProperty().addListener((observable, oldValue, newValue) ->
+                chat.displayMessage(newValue));
     }
 }

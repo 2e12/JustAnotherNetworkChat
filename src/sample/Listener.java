@@ -1,6 +1,7 @@
 package sample;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
@@ -13,9 +14,16 @@ public class Listener extends Thread{
 
     @Override
     public void run() {
-
-        while (!socket.isClosed()) {
-
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+            while (!this.socket.isClosed()) {
+                String response = in.readLine();
+                if (response != null) {
+                    Model.setOutput(response);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
