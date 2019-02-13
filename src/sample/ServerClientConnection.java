@@ -36,18 +36,13 @@ public class ServerClientConnection extends Thread {
             BufferedReader in = new BufferedReader(new InputStreamReader(this.clientConnection.getInputStream()));
             while (!clientConnection.isClosed()) {
                 String response = in.readLine();
-                JancProtocolHandler.getInstance().ParseFromString(response, this.getClientConnection());
-                System.out.println("Get It");
-            }
-            if (clientConnection.isClosed()) {
-                System.out.println("Bye!");
+                JancProtocolHandler.getInstance().ParseFromString(response, this.getClientConnection(), this);
             }
 
         } catch (IOException e) {
             try {
                 this.clientConnection.close();
                 System.out.println("Connection lost with " + this.clientConnection.getInetAddress());
-                e.printStackTrace();
             } catch (IOException ee) {
 
             }

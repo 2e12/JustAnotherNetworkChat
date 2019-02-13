@@ -21,7 +21,7 @@ public class SendSessionKey extends JancCommand{
     @Override
     void send(Socket socket) throws IOException {
         var out = new PrintWriter(socket.getOutputStream(), true);
-        out.println("key;");
+        out.println("key;" + this.sessionKey + ";");
     }
 
     @Override
