@@ -23,8 +23,8 @@ public class Connection {
 
     }
 
-    public static void sendMessageToServer(String msg) {
+    public static void sendMessageToServer(String msg, String uName) {
         String input = msg;
-        out.println("msg;null;gibb;null;" + System.currentTimeMillis() + ";" + input + ";");
+        out.println("msg;null;" + uName + ";null;" + System.currentTimeMillis() + ";" + input + ";");
     }
 }

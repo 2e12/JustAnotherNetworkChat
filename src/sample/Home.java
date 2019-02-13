@@ -49,7 +49,6 @@ public class Home{
         //Create content of the selection-menu
         txtTitle = new Text("establish new connection:");
         txtWarning = new Text("");
-
         txtfdAdress = new TextField();
         txtfdAdress.setPromptText("ip-adress of your server");
         txtfdUsername = new TextField();

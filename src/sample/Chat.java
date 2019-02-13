@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -11,7 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.Date;
 
 public class Chat{
     private Scene sceneChat;
@@ -23,7 +20,22 @@ public class Chat{
     private VBox vbxMessages;
     private TextField txtfdActualMessage;
     private VBox vbxContent;
+    private String userName;
+
+    public void setConnectedIP(String connectedIP) {
+        this.connectedIP = connectedIP;
+    }
+
     private Button butSend;
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setTxtConnectionText(String txt) {
+        this.txtConnection.setText(txt);
+    }
+
     private String connectedIP;
     private Connection connection;
 
@@ -37,6 +49,10 @@ public class Chat{
 
     public TextField getTxtfdActualMessage() {
         return txtfdActualMessage;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public Chat(){
@@ -77,8 +93,8 @@ public class Chat{
         bpPane.setCenter(vbxContent);
         sceneChat = new Scene(bpPane, 800, 950);
     }
-    public void sendMessage(String message) {
-        connection.sendMessageToServer(message);
+    public void sendMessage(String message, String uName) {
+        connection.sendMessageToServer(message, uName);
         txtfdActualMessage.setText("");
     }
 

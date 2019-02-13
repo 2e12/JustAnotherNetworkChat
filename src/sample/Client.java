@@ -20,6 +20,9 @@ public class Client extends Application{
 
     public static void switchToScene() {
         stage.setScene(view.getChat().getSceneChat());
+        view.getChat().setUserName(view.getHome().getTxtfdUsername().getText());
+        view.getChat().setConnectedIP(view.getHome().getTxtfdAdress().getText());
+        view.getChat().setTxtConnectionText("chatting @ " + view.getHome().getTxtfdAdress().getText());
         view.getChat().setConnection(view.getHome().getTxtfdAdress().getText(), view.getHome().getTxtfdUsername().getText(), view.getHome().getTxtfdPassword().getText());
     }
 
