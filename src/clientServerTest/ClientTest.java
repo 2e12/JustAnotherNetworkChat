@@ -15,7 +15,6 @@ public class ClientTest {
             Socket socket = new Socket("192.168.52.18", 9981);
             socket.setKeepAlive(true);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            //var out = new OutputStreamWriter(socket.getOutputStream());
 
 
             out.println("lgn;ADOLF;sml123456");

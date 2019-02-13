@@ -3,6 +3,7 @@ package sample;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Random;
 
 public class RequestSessionKey extends JancCommand{
     String username;
@@ -14,17 +15,25 @@ public class RequestSessionKey extends JancCommand{
 
     @Override
     void handle() {
-        System.out.println(this.username);
-        JancProtocolHandler.getInstance().putUserConnection(this.username, getSourceSocket());
+        Random rand = new Random();
+        String sessionKey = String.valueOf(rand.nextInt(2147483647));
+        String[] parts = new String[]{"key", this.username, sessionKey};
+        SendSessionKey key = new SendSessionKey(parts, this.getSourceSocket());
+        try {
+            key.send(this.getSourceSocket());
+            JancProtocolHandler.getInstance().putUserConnection(this.username, this.getSourceSocket(), sessionKey);
+            System.out.println("[Login] Hello " + this.username + this.getSourceSocket().getInetAddress());
+        } catch (IOException e) {
 
-        //Implement login
+        }
+
     }
 
     @Override
     void send(Socket socket) throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         out.println("lgn;gibb;sml12345");
-        out.close();
+
     }
 
     @Override

@@ -9,6 +9,8 @@ import java.util.*;
 
 public class JancProtocolHandler {
 
+
+    private ServerClientConnection connectionInfo;
     private static JancProtocolHandler instance;
 
     public static JancProtocolHandler getInstance() {
@@ -38,20 +40,20 @@ public class JancProtocolHandler {
             try {
                 var out = new PrintWriter(connection.getClientConnection().getOutputStream(), true);
                 out.println(command);
-                //out.close();
             }catch (IOException e){}
         }
     }
 
-    public void putUserConnection(String username, Socket socket) {
-        ServerClientConnection connection = new ServerClientConnection(socket, null);
+    public void putUserConnection(String username, Socket socket, String sessionKey) {
+        ServerClientConnection connection = new ServerClientConnection(socket, sessionKey);
         connections.add(connection);
         connection.start();
     }
 
     //Parse the Command and passing the Arguments to the registerd command
-    public void ParseFromString(String input, Socket socket) {
+    public void ParseFromString(String input, Socket socket, ServerClientConnection connectionInfo) {
         String[] parts = input.split(";");
+        this.connectionInfo = connectionInfo;
         this.ExecuteCommand(parts, socket);
     }
 
