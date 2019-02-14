@@ -27,7 +27,7 @@ public class CloseConnection extends JancCommand{
     @Override
     void parseFromString(String[] parts) throws MalformedCommandException {
         if (parts.length != 1) {
-            throw new MalformedCommandException("Wrong number of Paramteres");
+            throw new MalformedCommandException("Wrong number of paramteres");
         }
     }
 }

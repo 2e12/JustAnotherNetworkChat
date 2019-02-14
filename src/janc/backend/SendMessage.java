@@ -40,7 +40,7 @@ public class SendMessage extends JancCommand{
                 throw new MalformedCommandException("Message can't be empty");
             }
         } else {
-            throw new MalformedCommandException("Wrong number of Paramteres");
+            throw new MalformedCommandException("Wrong number of paramteres");
         }
     }
 }
