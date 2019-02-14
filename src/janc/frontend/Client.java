@@ -1,6 +1,7 @@
 package janc.frontend;
 
 import javafx.application.Application;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Client extends Application{
@@ -23,6 +24,8 @@ public class Client extends Application{
         view = new View(controller, model);
         primaryStage.setTitle("Just Another Network Chat");
         primaryStage.setScene(view.getHome().getSceneHome());
+        primaryStage.setX(Screen.getPrimary().getBounds().getMaxX() / 100 * 36);
+        primaryStage.setY(Screen.getPrimary().getBounds().getMaxY() / 100 * 2);
         primaryStage.show();
     }
 

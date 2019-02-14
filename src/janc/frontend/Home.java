@@ -95,8 +95,8 @@ public class Home{
         tgThemes = new ToggleGroup();
         rbutBright = new RadioButton();
         rbutDark = new RadioButton();
-        lblBright = new Label("Bright theme:");
-        lblDark = new Label("Dark theme:");
+        lblBright = new Label("Bright theme: ");
+        lblDark = new Label("Dark theme: ");
         rbutBright.setToggleGroup(tgThemes);
         rbutDark.setToggleGroup(tgThemes);
         rbutBright.setSelected(true);

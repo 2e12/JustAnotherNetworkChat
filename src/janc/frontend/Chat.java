@@ -65,12 +65,15 @@ public class Chat{
         spPane = new ScrollPane();
         spPane.setMaxHeight(600);
         spPane.setMinHeight(600);
+        spPane.setMaxWidth(550);
+        spPane.setMinHeight(550);
         spPane.setContent(vbxMessages);
         spPane.vvalueProperty().bind(vbxMessages.heightProperty());
 
         //Create the content of the input field
         txtfdActualMessage = new TextField();
         txtfdActualMessage.setPromptText("message");
+        txtfdActualMessage.setPrefWidth(550);
 
         //Create the send-button and the HBox
         butSend = new Button("send");
@@ -83,14 +86,17 @@ public class Chat{
         //Add the side content to a vbox
         vbxContent = new VBox();
         vbxContent.getChildren().addAll(spPane, txtfdActualMessage, hbxSend);
+        vbxContent.setMargin(spPane, new Insets(0, 125, 0, 125));
+        vbxContent.setMargin(txtfdActualMessage, new Insets(0, 125, 0, 125));
+        vbxContent.setMargin(hbxSend, new Insets(0, 125, 0, 0));
         vbxContent.setSpacing(40);
 
         //Create nodes for the footer
         tgThemes = new ToggleGroup();
         rbutBright = new RadioButton();
         rbutDark = new RadioButton();
-        lblBright = new Label("Bright theme:");
-        lblDark = new Label("Dark theme:");
+        lblBright = new Label("Bright theme: ");
+        lblDark = new Label("Dark theme: ");
         rbutBright.setToggleGroup(tgThemes);
         rbutDark.setToggleGroup(tgThemes);
         rbutBright.setSelected(true);
@@ -108,7 +114,8 @@ public class Chat{
         bpPane.setTop(vbxHeader);
         bpPane.setCenter(vbxContent);
         bpPane.setBottom(hbxThemes);
-        bpPane.setMargin(hbxThemes, new Insets(0, 0, 30, 52));
+        bpPane.setMargin(vbxHeader, new Insets(10, 0, 20, 125));
+        bpPane.setMargin(hbxThemes, new Insets(0, 0, 30, 125));
         sceneChat = new Scene(bpPane, 800, 950);
     }
 
