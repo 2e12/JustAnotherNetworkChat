@@ -2,7 +2,6 @@ package janc.frontend;
 
 
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Model {
@@ -10,65 +9,135 @@ public class Model {
     private SimpleStringProperty writtenMessage = new SimpleStringProperty("");
     private static SimpleStringProperty output = new SimpleStringProperty("");
     private SimpleBooleanProperty warning = new SimpleBooleanProperty(false);
-    private SimpleIntegerProperty sroll = new SimpleIntegerProperty(0);
+    private SimpleStringProperty colorTheme = new SimpleStringProperty("bright");
 
-    public int getSroll() {
-        return sroll.get();
+    /**
+     * Used for adding Listeners
+     * @return the value of colorTheme
+     */
+    public SimpleStringProperty colorThemeProperty() {
+        return colorTheme;
     }
 
-    public SimpleIntegerProperty srollProperty() {
-        return sroll;
-    }
-
-    public void setSroll(int sroll) {
-        this.sroll.set(sroll);
-    }
-
-    public boolean isWarning() {
-        return warning.get();
-    }
-
-    public SimpleBooleanProperty warningProperty() {
-        return warning;
-    }
-
-    public void setWarning(boolean warning) {
-        this.warning.set(warning);
-    }
-
-    public static String getOutput() {
-        return output.get();
-    }
-
-    public static SimpleStringProperty outputProperty() {
-        return output;
-    }
-
-    public static void setOutput(String output) {
-        Model.output.set(output);
-    }
-
-    public String getWrittenMessage() {
-        return writtenMessage.get();
-    }
-
-    public SimpleStringProperty writtenMessageProperty() {
-        return writtenMessage;
-    }
-
-    public void setWrittenMessage(String writtenMessage) {
-        this.writtenMessage.set(writtenMessage);
-    }
-
-    public boolean isChangeSite() {
-        return changeSite.get();
-    }
-
+    /**
+     * Used for adding Listeners
+     * @return the value of changeSite
+     */
     public SimpleBooleanProperty changeSiteProperty() {
         return changeSite;
     }
 
-    public void setChangeSite(boolean changeSite) {
+    /**
+     * Used for adding Listeners
+     * @return the value of writtenMessage
+     */
+    public SimpleStringProperty writtenMessageProperty() {
+        return writtenMessage;
+    }
+
+    /**
+     * Used for adding Listeners
+     * @return the value of output
+     */
+    public static SimpleStringProperty outputProperty() {
+        return output;
+    }
+
+    /**
+     * Used for adding Listeners
+     * @return the value of warning
+     */
+    public SimpleBooleanProperty warningProperty() {
+        return warning;
+    }
+
+    /**
+     * Gets changeSite.
+     *
+     * @return Value of changeSite.
+     */
+    public SimpleBooleanProperty getChangeSite() {
+        return changeSite;
+    }
+
+    /**
+     * Sets new output.
+     *
+     * @param output New value of output.
+     */
+    public static void setOutput(String output) {
+        Model.output.set(output);
+    }
+
+    /**
+     * Gets output.
+     *
+     * @return Value of output.
+     */
+    public static SimpleStringProperty getOutput() {
+        return output;
+    }
+
+    /**
+     * Sets new warning.
+     *
+     * @param warning New value of warning.
+     */
+    public void setWarning(Boolean warning) {
+        this.warning.set(warning);
+    }
+
+    /**
+     * Sets new writtenMessage.
+     *
+     * @param writtenMessage New value of writtenMessage.
+     */
+    public void setWrittenMessage(String writtenMessage) {
+        this.writtenMessage.set(writtenMessage);
+    }
+
+    /**
+     * Gets writtenMessage.
+     *
+     * @return Value of writtenMessage.
+     */
+    public SimpleStringProperty getWrittenMessage() {
+        return writtenMessage;
+    }
+
+    /**
+     * Gets warning.
+     *
+     * @return Value of warning.
+     */
+    public SimpleBooleanProperty getWarning() {
+        return warning;
+    }
+
+    /**
+     * Sets new changeSite.
+     *
+     * @param changeSite New value of changeSite.
+     */
+    public void setChangeSite(Boolean changeSite) {
         this.changeSite.set(changeSite);
+    }
+
+    /**
+     * Sets new colorTheme.
+     *
+     * @param colorTheme New value of colorTheme.
+     */
+    public void setColorTheme(String colorTheme) {
+        this.colorTheme.set(colorTheme);
+    }
+
+    /**
+     * Gets colorTheme.
+     *
+     * @return Value of colorTheme.
+     */
+    public SimpleStringProperty getColorTheme() {
+        return colorTheme;
     }
 }

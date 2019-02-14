@@ -1,20 +1,17 @@
 package janc.frontend;
 
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 public class Chat{
     private Controller controller;
@@ -34,45 +31,22 @@ public class Chat{
     private Text myOwner;
     private VBox myVBox;
     private HBox myHBox;
-
-    public void setConnectedIP(String connectedIP) {
-        this.connectedIP = connectedIP;
-    }
-
     private Button butSend;
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setTxtConnectionText(String txt) {
-        this.txtConnection.setText(txt);
-    }
-
     private String connectedIP;
     private ServerConnection serverConnection;
+    private final ToggleGroup tgThemes;
+    private RadioButton rbutBright;
+    private RadioButton rbutDark;
+    private Label lblBright;
+    private Label lblDark;
+    private HBox hbxBright;
+    private HBox hbxDark;
+    private HBox hbxThemes;
 
-    public Scene getSceneChat() {
-        return sceneChat;
-    }
-
-    public Button getButSend() {
-        return butSend;
-    }
-
-    public TextField getTxtfdActualMessage() {
-        return txtfdActualMessage;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public ScrollPane getSpPane() {
-        return spPane;
-    }
-
-    public Chat(Controller controller){
+    /**
+     * This method is the constructor of the Chat class. Here the whole GUI for the chat tab gets built.
+     */
+    public Chat(){
         this.controller = controller;
         //Create the header content
         txtHeader = new Text("chatroom:");
@@ -84,7 +58,6 @@ public class Chat{
         vbxHeader = new VBox();
         vbxHeader.getChildren().addAll(txtHeader, txtConnection);
 
-
         //Create the chat
         vbxMessages = new VBox();
         vbxMessages.setPrefWidth(15);
@@ -92,12 +65,15 @@ public class Chat{
         spPane = new ScrollPane();
         spPane.setMaxHeight(600);
         spPane.setMinHeight(600);
+        spPane.setMaxWidth(660);
+        spPane.setMinWidth(660);
         spPane.setContent(vbxMessages);
         spPane.vvalueProperty().bind(vbxMessages.heightProperty());
 
         //Create the content of the input field
         txtfdActualMessage = new TextField();
         txtfdActualMessage.setPromptText("message");
+        txtfdActualMessage.setPrefWidth(550);
 
         //Create the send-button and the HBox
         butSend = new Button("send");
@@ -110,24 +86,63 @@ public class Chat{
         //Add the side content to a vbox
         vbxContent = new VBox();
         vbxContent.getChildren().addAll(spPane, txtfdActualMessage, hbxSend);
+        vbxContent.setMargin(spPane, new Insets(0, 70, 0, 70));
+        vbxContent.setMargin(txtfdActualMessage, new Insets(0, 70, 0, 70));
+        vbxContent.setMargin(hbxSend, new Insets(0, 70, 0, 0));
         vbxContent.setSpacing(40);
+
+        //Create nodes for the footer
+        tgThemes = new ToggleGroup();
+        rbutBright = new RadioButton();
+        rbutDark = new RadioButton();
+        lblBright = new Label("Bright theme: ");
+        lblDark = new Label("Dark theme: ");
+        rbutBright.setToggleGroup(tgThemes);
+        rbutDark.setToggleGroup(tgThemes);
+        rbutBright.setSelected(true);
+        rbutDark.setSelected(false);
+        hbxBright = new HBox();
+        hbxDark = new HBox();
+        hbxBright.getChildren().addAll(lblBright, rbutBright);
+        hbxDark.getChildren().addAll(lblDark, rbutDark);
+        hbxThemes = new HBox();
+        hbxThemes.getChildren().addAll(hbxBright, hbxDark);
+        hbxThemes.setSpacing(65);
 
         //Add everything to a Scene
         bpPane = new BorderPane();
         bpPane.setTop(vbxHeader);
         bpPane.setCenter(vbxContent);
+        bpPane.setBottom(hbxThemes);
+        bpPane.setMargin(vbxHeader, new Insets(10, 0, 20, 70));
+        bpPane.setMargin(hbxThemes, new Insets(0, 0, 90, 70));
         sceneChat = new Scene(bpPane, 800, 950);
     }
+
+    /**
+     * This method is used for send a message to the server.
+     * @param message this parameter is the whole message which to user has made.
+     * @param uName this parameter is the name of the user which sent the message. Later the app uses this param for styling the message in the GUI.
+     */
     public void sendMessage(String message, String uName) {
         serverConnection.sendMessageToServer(message, uName);
         txtfdActualMessage.setText("");
     }
 
+    /**
+     * This method creates a new connection to a specified server.
+     * @param ipAdress this is the ip-adress of the server where the user can send his messages to.
+     * @param uName this is the name of user who wants to connect to the server. This param is used to identify the sender.
+     * @param pWord this is the password of the user. It's also used for the identification.
+     */
     public void setConnection(String ipAdress, String uName, String pWord) {
         this.serverConnection = new ServerConnection(ipAdress, uName, pWord);
     }
 
-
+    /**
+     * This huge method adds the messages, which are distributed by the server, to the GUI.
+     * @param message For sure the method needs to know, what the content of the message is. This param contains the sending user, a timestamp and the message himself.
+     */
     public void displayMessage(String message) {
         String[] parts = message.split(";");
         Platform.runLater(() -> {
@@ -172,5 +187,117 @@ public class Chat{
                 System.out.println("Logging in...");
             }
         });
+    }
+
+    public void changeStyle(String theme) {
+        if (theme.equals("bright")) {
+            rbutBright.setSelected(true);
+            rbutDark.setSelected(false);
+            txtHeader.setFill(Color.web("#4F6367"));
+            txtConnection.setFill(Color.web("#4F6367"));
+            bpPane.setStyle("-fx-background-color: #FFFFFF");
+            lblBright.setTextFill(Color.web("#000000"));
+            lblDark.setTextFill(Color.web("#000000"));
+            spPane.setStyle("-fx-background: #FFFFFF");
+        } else {
+            rbutBright.setSelected(true);
+            rbutDark.setSelected(false);
+            txtHeader.setFill(Color.web("#FFFFFF"));
+            txtConnection.setFill(Color.web("#FFFFFF"));
+            bpPane.setStyle("-fx-background-color: #363636");
+            lblBright.setTextFill(Color.web("#FFFFFF"));
+            lblDark.setTextFill(Color.web("#FFFFFF"));
+            spPane.setStyle("-fx-background: #363636");
+        }
+    }
+
+    /**
+     * Sets new txtConnection.
+     *
+     * @param txt New content for the txtConnection Node.
+     */
+    public void setTxtConnectionText(String txt) {
+        this.txtConnection.setText(txt);
+    }
+
+    /**
+     * Sets new userName.
+     *
+     * @param userName New value of userName.
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * Sets new connectedIP.
+     *
+     * @param connectedIP New value of connectedIP.
+     */
+    public void setConnectedIP(String connectedIP) {
+        this.connectedIP = connectedIP;
+    }
+
+    /**
+     * Gets txtfdActualMessage.
+     *
+     * @return Value of txtfdActualMessage.
+     */
+    public TextField getTxtfdActualMessage() {
+        return txtfdActualMessage;
+    }
+
+    /**
+     * Gets userName.
+     *
+     * @return Value of userName.
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * Gets butSend.
+     *
+     * @return Value of butSend.
+     */
+    public Button getButSend() {
+        return butSend;
+    }
+
+    /**
+     * Gets sceneChat.
+     *
+     * @return Value of sceneChat.
+     */
+    public Scene getSceneChat() {
+        return sceneChat;
+    }
+
+    /**
+     * Gets spPane.
+     *
+     * @return Value of spPane.
+     */
+    public ScrollPane getSpPane() {
+        return spPane;
+    }
+
+    /**
+     * Gets rbutBright.
+     *
+     * @return Value of rbutBright.
+     */
+    public RadioButton getRbutBright() {
+        return rbutBright;
+    }
+
+    /**
+     * Gets rbutDark.
+     *
+     * @return Value of rbutDark.
+     */
+    public RadioButton getRbutDark() {
+        return rbutDark;
     }
 }
