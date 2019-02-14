@@ -166,7 +166,10 @@ public class Chat{
                     myHBox.getChildren().add(myTime);
                     myVBox.getChildren().add(myText);
                     myVBox.getChildren().add(myHBox);
+                    myVBox.setPadding(new Insets(10, 10, 10, 10));
                     vbxMessages.getChildren().add(myVBox);
+                    vbxMessages.setPadding(new Insets(20, 0, 20, 15));
+                    vbxMessages.setSpacing(40);
                 } else {
                     myOwner = new Text(owner + ":");
                     myOwner.setFont(Font.font("Arial", 16));
@@ -181,7 +184,10 @@ public class Chat{
                     myVBox.getChildren().add(myOwner);
                     myVBox.getChildren().add(myText);
                     myVBox.getChildren().add(myHBox);
+                    myVBox.setPadding(new Insets(10, 10, 10, 10));
                     vbxMessages.getChildren().add(myVBox);
+                    vbxMessages.setPadding(new Insets(20, 0, 20, 15));
+                    vbxMessages.setSpacing(40);
                 }
             }else {
                 System.out.println("Logging in...");
