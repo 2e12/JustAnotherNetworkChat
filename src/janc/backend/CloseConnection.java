@@ -5,10 +5,10 @@ import java.net.Socket;
 
 public class CloseConnection extends JancCommand{
 
-    public CloseConnection(String[] parts, Socket source) throws MalformedCommandException {
-        super(parts, source);
+    public CloseConnection(String[] parts, ServerClientConnection connection) throws MalformedCommandException {
+        super(parts, connection);
         try {
-            source.close();
+            connection.getClientConnection().close();
         }catch (IOException e){
 
         }

@@ -10,8 +10,8 @@ public class SendSessionKey extends JancCommand{
     private String sessionKey;
 
 
-    public SendSessionKey(String[] parts, Socket source) throws MalformedCommandException {
-        super(parts, source);
+    public SendSessionKey(String[] parts, ServerClientConnection connection) throws MalformedCommandException {
+        super(parts, connection);
     }
 
     @Override

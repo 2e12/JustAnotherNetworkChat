@@ -15,25 +15,36 @@ public class SendMessage extends JancCommand{
     String message;
 
 
-    public SendMessage(String[] parts, Socket source) throws MalformedCommandException {
-        super(parts, source);
+    public SendMessage(String[] parts, ServerClientConnection connection) throws MalformedCommandException {
+        super(parts, connection);
     }
 
     @Override
     void handle() {
-        System.out.println("[Message] " + this.fromUsername + ": " + this.message);
-        JancProtocolHandler.getInstance().broadcastToAllClients("dsb;" + this.fromUsername + ";" + this.timestamp + ";" + this.message);
-        try {
-            Connection connection = ConnectionFactory.getInstance().getConnection();
-            MessageJDBCDao protocol = new MessageJDBCDao(connection);
-            UserJDBCDao userDB = new UserJDBCDao(ConnectionFactory.getInstance().getConnection());
-            Message message = new Message();
-            message.setText(this.message);
-            message.setTimestamp(this.timestamp);
-            message.setUserid(userDB.getUserIdByName(this.fromUsername));
-            protocol.insertMessage(message);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        System.out.println(this.getConnection().getUser().getUsername());
+        if (this.fromUsername.equals(this.getConnection().getUser().getUsername())) {
+            System.out.println("[Message] " + this.fromUsername + ": " + this.message);
+            JancProtocolHandler.getInstance().broadcastToAllClients("dsb;" + this.fromUsername + ";" + this.timestamp + ";" + this.message);
+            try {
+                Connection connection = ConnectionFactory.getInstance().getConnection();
+                MessageJDBCDao protocol = new MessageJDBCDao(connection);
+                UserJDBCDao userDB = new UserJDBCDao(ConnectionFactory.getInstance().getConnection());
+                Message message = new Message();
+                message.setText(this.message);
+                message.setTimestamp(this.timestamp);
+                message.setUserid(userDB.getUserIdByName(this.fromUsername));
+                protocol.insertMessage(message);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                this.getConnection().getClientConnection().close();
+                System.out.println("[Security] " + this.getConnection().getUser().getUsername() + " used invalid credentials. Kicked from the Chat.");
+            } catch (IOException e) {
+
+            }
+
         }
     }
 

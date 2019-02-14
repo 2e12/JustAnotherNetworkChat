@@ -20,7 +20,7 @@ public class ServerClientConnection extends Thread {
             BufferedReader in = new BufferedReader(new InputStreamReader(this.clientConnection.getInputStream()));
             while (!clientConnection.isClosed()) {
                 String response = in.readLine();
-                JancProtocolHandler.getInstance().ParseFromString(response, this.getClientConnection(), this);
+                JancProtocolHandler.getInstance().ParseFromString(response, this);
             }
 
         } catch (IOException e) {
