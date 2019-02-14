@@ -10,14 +10,14 @@ public class ServerConnection {
     private Listener listener;
     private String uName;
 
-    public Listener getListener() {
-        return listener;
-    }
-
-    public String getuName() {
-        return uName;
-    }
-
+    /**
+     * This method is the constructor of the ServerConnection class.
+     * It makes a new connection to a Server with a certain ip an the port 9980.
+     * Also it sends a new login command to the connected server.
+     * @param ipAdress the ip-adress to connect to the server.
+     * @param uName the username to make it possible, that the server can identify his logged in users.
+     * @param pWord the password for verify the identity of the user.
+     */
     public ServerConnection(String ipAdress, String uName, String pWord) {
         try {
             this.uName = uName;
@@ -34,8 +34,31 @@ public class ServerConnection {
 
     }
 
+    /**
+     * This method is used for sending new messages to the server.
+      * @param msg the message of the user.
+     * @param uName the name of the sending user.
+     */
     public static void sendMessageToServer(String msg, String uName) {
         String input = msg;
         out.println("msg;null;" + uName + ";null;" + System.currentTimeMillis() + ";" + input + ";");
+    }
+
+    /**
+     * Gets uName.
+     *
+     * @return Value of uName.
+     */
+    public String getUName() {
+        return uName;
+    }
+
+    /**
+     * Gets listener.
+     *
+     * @return Value of listener.
+     */
+    public Listener getListener() {
+        return listener;
     }
 }

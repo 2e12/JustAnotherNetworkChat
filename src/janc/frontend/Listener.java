@@ -8,14 +8,24 @@ import java.net.Socket;
 public class Listener extends Thread{
     private Socket socket;
 
+
     public Socket getSocket() {
         return socket;
     }
+
+
+    /**
+     * The creator of this class gives the instance variable the value of the parameter socket.
+     * @param socket
+     */
 
     public Listener(Socket socket) {
         this.socket = socket;
     }
 
+    /**
+     * This method listens to the server for any distributed messages.
+     */
     @Override
     public void run() {
         try {
