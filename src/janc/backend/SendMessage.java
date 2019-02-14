@@ -36,6 +36,9 @@ public class SendMessage extends JancCommand{
             this.toUsername = parts[3];
             this.timestamp = parts[4];
             this.message = parts[5];
+            if (!(this.message.matches(".*\\w.*"))) {
+                throw new MalformedCommandException("Message can't be empty");
+            }
         } else {
             throw new MalformedCommandException("Wrong number of Paramteres");
         }
