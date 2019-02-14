@@ -19,11 +19,6 @@ public class MessageJDBCDao implements MessageDao {
     }
 
     @Override
-    /**
-     * This function addes a new message.
-     * @param message This is the message, the needed to be inserted.
-     * @return void
-     */
     public void insertMessage(Message message) {
         try {
             String sql = "INSERT INTO message (userid, timestamp, text) VALUES (?, ?, ?)";
@@ -39,10 +34,6 @@ public class MessageJDBCDao implements MessageDao {
     }
 
     @Override
-    /**
-     * This function loads all messages from the database.
-     * @return List<Message> A list with all messages.
-     */
     public List<Message> getAllMessages() {
         List<Message> messages = new ArrayList<Message>();
         try {

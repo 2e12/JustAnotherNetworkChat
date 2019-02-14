@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.SQLException;
-import java.util.Random;
 
 public class RequestSessionKey extends JancCommand{
     String username;
@@ -25,10 +24,10 @@ public class RequestSessionKey extends JancCommand{
                 user.setPassword(this.password);
                 UserJDBCDao userLogin = new UserJDBCDao(ConnectionFactory.getInstance().getConnection());
 
-                loginstate state = userLogin.checkLoginCredentials(user);
-                if (state != loginstate.worngpassword) {
+                LoginState state = userLogin.checkLoginCredentials(user);
+                if (state != LoginState.worngPassword) {
                     boolean sendWelcomeMessage = false;
-                    if (state == loginstate.nouser) {
+                    if (state == LoginState.noUser) {
                         userLogin.insertUser(user);
                         sendWelcomeMessage = true;
                     }
