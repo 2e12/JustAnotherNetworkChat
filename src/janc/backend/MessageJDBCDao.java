@@ -34,11 +34,12 @@ public class MessageJDBCDao implements MessageDao {
     }
 
     @Override
-    public List<Message> getAllMessages() {
+    public List<Message> getAllMessagesSince(String timestamp) {
         List<Message> messages = new ArrayList<Message>();
         try {
-            String sql = "SELECT * FROM messages";
+            String sql = "SELECT * FROM messages WHERE timestamp > ?";
             PreparedStatement ps = this.connection.prepareStatement(sql);
+            ps.setTimestamp(1, new Timestamp(Long.parseLong(timestamp)));
             ResultSet result = ps.executeQuery();
 
             Message message = null;

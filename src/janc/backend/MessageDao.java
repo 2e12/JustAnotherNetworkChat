@@ -10,9 +10,11 @@ public interface MessageDao {
      */
     public abstract void insertMessage(Message message);
 
+
     /**
-     * This function loads all messages from the database.
-     * @return List<Message> A list with all messages.
+     * Returns every message since a point X
+     * @param timestamp The date point as timestamp
+     * @return List<Message> A list with all messages since X.
      */
-    public abstract List<Message> getAllMessages();
+    public abstract List<Message> getAllMessagesSince(String timestamp);
 }

@@ -21,7 +21,6 @@ public class SendMessage extends JancCommand{
 
     @Override
     void handle() {
-        System.out.println(this.getConnection().getUser().getUsername());
         if (this.fromUsername.equals(this.getConnection().getUser().getUsername())) {
             System.out.println("[Message] " + this.fromUsername + ": " + this.message);
             JancProtocolHandler.getInstance().broadcastToAllClients("dsb;" + this.fromUsername + ";" + this.timestamp + ";" + this.message);
