@@ -16,7 +16,7 @@ public abstract class JancCommand {
     }
 
     //Pass parameters to the parseFromString Function
-    public JancCommand(String[] parts, Socket source) {
+    public JancCommand(String[] parts, Socket source) throws MalformedCommandException {
         parseFromString(parts);
         setSourceSocket(source);
     }
