@@ -65,8 +65,8 @@ public class Chat{
         spPane = new ScrollPane();
         spPane.setMaxHeight(600);
         spPane.setMinHeight(600);
-        spPane.setMaxWidth(550);
-        spPane.setMinHeight(550);
+        spPane.setMaxWidth(660);
+        spPane.setMinWidth(660);
         spPane.setContent(vbxMessages);
         spPane.vvalueProperty().bind(vbxMessages.heightProperty());
 
@@ -86,9 +86,9 @@ public class Chat{
         //Add the side content to a vbox
         vbxContent = new VBox();
         vbxContent.getChildren().addAll(spPane, txtfdActualMessage, hbxSend);
-        vbxContent.setMargin(spPane, new Insets(0, 125, 0, 125));
-        vbxContent.setMargin(txtfdActualMessage, new Insets(0, 125, 0, 125));
-        vbxContent.setMargin(hbxSend, new Insets(0, 125, 0, 0));
+        vbxContent.setMargin(spPane, new Insets(0, 70, 0, 70));
+        vbxContent.setMargin(txtfdActualMessage, new Insets(0, 70, 0, 70));
+        vbxContent.setMargin(hbxSend, new Insets(0, 70, 0, 0));
         vbxContent.setSpacing(40);
 
         //Create nodes for the footer
@@ -114,8 +114,8 @@ public class Chat{
         bpPane.setTop(vbxHeader);
         bpPane.setCenter(vbxContent);
         bpPane.setBottom(hbxThemes);
-        bpPane.setMargin(vbxHeader, new Insets(10, 0, 20, 125));
-        bpPane.setMargin(hbxThemes, new Insets(0, 0, 30, 125));
+        bpPane.setMargin(vbxHeader, new Insets(10, 0, 20, 70));
+        bpPane.setMargin(hbxThemes, new Insets(0, 0, 90, 70));
         sceneChat = new Scene(bpPane, 800, 950);
     }
 
