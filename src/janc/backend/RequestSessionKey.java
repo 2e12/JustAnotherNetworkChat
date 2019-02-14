@@ -16,9 +16,7 @@ public class RequestSessionKey extends JancCommand{
 
     @Override
     void handle() {
-        Random rand = new Random();
-        String sessionKey = String.valueOf(rand.nextInt(2147483647));
-        String[] parts = new String[]{"key", this.username, sessionKey};
+        String[] parts = new String[]{"key", this.username, null};
         SendSessionKey key = new SendSessionKey(parts, this.getSourceSocket());
         try {
             User user = new User();
@@ -26,9 +24,13 @@ public class RequestSessionKey extends JancCommand{
             user.setPassword(this.password);
             UserJDBCDao userLogin = new UserJDBCDao(ConnectionFactory.getInstance().getConnection());
 
-            if (userLogin.checkLoginCredentials(user) == loginstate.correct) {
+            loginstate state = userLogin.checkLoginCredentials(user);
+            if (state != loginstate.worngpassword) {
+                if (state == loginstate.nouser) {
+                    userLogin.insertUser(user);
+                }
                 key.send(this.getSourceSocket());
-                JancProtocolHandler.getInstance().putUserConnection(this.username, this.getSourceSocket(), sessionKey);
+                JancProtocolHandler.getInstance().putUserConnection(this.username, this.getSourceSocket(), null);
                 System.out.println("[Login] Hello " + this.username + this.getSourceSocket().getInetAddress());
             } else {
                 getSourceSocket().close();
