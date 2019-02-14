@@ -9,6 +9,11 @@ public class Client extends Application{
     private static Model model;
     private static Controller controller;
 
+    /**
+     * This constructor is a type of a manager for every class which the client uses.
+     * @param primaryStage The main stage of the client.
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         stage = primaryStage;
@@ -21,6 +26,9 @@ public class Client extends Application{
         primaryStage.show();
     }
 
+    /**
+     * This method changes the scene in the stage and sets a new connection to a specific server.
+     */
     public static void switchToScene() {
         stage.setScene(view.getChat().getSceneChat());
         view.getChat().setUserName(view.getHome().getTxtfdUsername().getText());
@@ -29,6 +37,10 @@ public class Client extends Application{
         view.getChat().setConnection(view.getHome().getTxtfdAdress().getText(), view.getHome().getTxtfdUsername().getText(), view.getHome().getTxtfdPassword().getText());
     }
 
+    /**
+     * This method starts the whole application.
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

@@ -10,6 +10,12 @@ public class View{
     private Home home;
     private Chat chat;
 
+    /**
+     * This is the constructor of the View class. Here we set the controller and the model.
+     * This method also checks, if there are any button actions and listens to the model.
+     * @param controller this param is the linked Controller class.
+     * @param model this param is the linked Model class.
+     */
     public View(Controller controller, Model model){
         this.controller = controller;
         this.model = model;
@@ -19,18 +25,10 @@ public class View{
         listenToModelChanges();
     }
 
-    public Chat getChat() {
-        return chat;
-    }
-
-    public Home getHome() {
-        return home;
-    }
-
-    public void setHome(Home home) {
-        this.home = home;
-    }
-
+    /**
+     * This method sets a few action handlers for buttons and key events.
+     * @throws NullPointerException
+     */
     private void registerButtonActionHandler() throws NullPointerException{
         home.getButConnect().setOnAction(actionEvent -> controller.handleButtonClickSideSwitch(home.getTxtfdAdress().getText(), home.getTxtfdUsername().getText(), home.getTxtfdPassword().getText()));
         home.getSceneHome().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -52,6 +50,9 @@ public class View{
         });
     }
 
+    /**
+     * This method listens to changes in the Model class and link actions to them.
+     */
     private void listenToModelChanges() {
         model.changeSiteProperty().addListener((observable, oldValue, newValue) ->
                 Client.switchToScene());
@@ -61,5 +62,32 @@ public class View{
                 chat.displayMessage(newValue));
         model.warningProperty().addListener((observable, oldValue, newValue) ->
                 home.getTxtWarning().setText("incorrect informations!"));
+    }
+
+    /**
+     * Gets home.
+     *
+     * @return Value of home.
+     */
+    public Home getHome() {
+        return home;
+    }
+
+    /**
+     * Gets chat.
+     *
+     * @return Value of chat.
+     */
+    public Chat getChat() {
+        return chat;
+    }
+
+    /**
+     * Sets new home.
+     *
+     * @param home New value of home.
+     */
+    public void setHome(Home home) {
+        this.home = home;
     }
 }
