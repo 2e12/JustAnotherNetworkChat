@@ -4,10 +4,10 @@ import java.sql.*;
 
 public class UserJDBCDao implements UserDao {
 
-    private java.sql.Connection con = null;
+    private java.sql.Connection connection = null;
 
     public UserJDBCDao(Connection connection) {
-        con = connection;
+        this.connection = connection;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class UserJDBCDao implements UserDao {
     public void insertUser(User user) {
         try {
             String sql = "INSERT INTO user (username, password, salt) VALUES (?, ?, ?)";
-            PreparedStatement ps = this.con.prepareStatement(sql);
+            PreparedStatement ps = this.connection.prepareStatement(sql);
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getSalt());
@@ -38,7 +38,7 @@ public class UserJDBCDao implements UserDao {
     public loginstate checkLoginCredentials(User user) {
         try {
             String sql = "SELECT * FROM user WHERE username = ?";
-            PreparedStatement ps = this.con.prepareStatement(sql);
+            PreparedStatement ps = this.connection.prepareStatement(sql);
             ps.setString(1, user.getUsername());
 
             ResultSet result = ps.executeQuery();
