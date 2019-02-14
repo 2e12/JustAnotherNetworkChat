@@ -14,7 +14,7 @@ public class View{
         this.controller = controller;
         this.model = model;
         home = new Home();
-        chat = new Chat();
+        chat = new Chat(controller);
         registerButtonActionHandler();
         listenToModelChanges();
     }
@@ -53,6 +53,15 @@ public class View{
     }
 
     private void listenToModelChanges() {
+        model.srollProperty().addListener((observable, oldValue, newValue) ->
+        {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            chat.getSpPane().setVvalue(1.0);
+        });
         model.changeSiteProperty().addListener((observable, oldValue, newValue) ->
                 Client.switchToScene());
         model.writtenMessageProperty().addListener((observable, oldValue, newValue) ->
