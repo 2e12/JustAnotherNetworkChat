@@ -8,6 +8,10 @@ import java.net.Socket;
 public class Listener extends Thread{
     private Socket socket;
 
+    public Socket getSocket() {
+        return socket;
+    }
+
     public Listener(Socket socket) {
         this.socket = socket;
     }
@@ -25,14 +29,5 @@ public class Listener extends Thread{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Gets socket.
-     *
-     * @return Value of socket.
-     */
-    public Socket getSocket() {
-        return socket;
     }
 }

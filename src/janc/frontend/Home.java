@@ -27,10 +27,30 @@ public class Home{
     private Button butConnect;
     private Text txtWarning;
 
+    public Text getTxtWarning() {
+        return txtWarning;
+    }
 
-    /**
-     * This is the creator of the Home class. This method creates the whole GUI in JavaFX.
-     */
+    public Scene getSceneHome(){
+        return sceneHome;
+    }
+
+    public TextField getTxtfdUsername() {
+        return txtfdUsername;
+    }
+
+    public PasswordField getTxtfdPassword() {
+        return txtfdPassword;
+    }
+
+    public TextField getTxtfdAdress() {
+        return txtfdAdress;
+    }
+
+    public Button getButConnect() {
+        return butConnect;
+    }
+
     public Home(){
         //Create content of the header element
         hbxHeader = new HBox();
@@ -91,59 +111,5 @@ public class Home{
 
         //Add everything to a scene
         sceneHome = new Scene(bpPane, 400, 600);
-    }
-
-    /**
-     * Gets txtfdPassword.
-     *
-     * @return Value of txtfdPassword.
-     */
-    public PasswordField getTxtfdPassword() {
-        return txtfdPassword;
-    }
-
-    /**
-     * Gets txtfdUsername.
-     *
-     * @return Value of txtfdUsername.
-     */
-    public TextField getTxtfdUsername() {
-        return txtfdUsername;
-    }
-
-    /**
-     * Gets sceneHome.
-     *
-     * @return Value of sceneHome.
-     */
-    public Scene getSceneHome() {
-        return sceneHome;
-    }
-
-    /**
-     * Gets txtfdAdress.
-     *
-     * @return Value of txtfdAdress.
-     */
-    public TextField getTxtfdAdress() {
-        return txtfdAdress;
-    }
-
-    /**
-     * Gets txtWarning.
-     *
-     * @return Value of txtWarning.
-     */
-    public Text getTxtWarning() {
-        return txtWarning;
-    }
-
-    /**
-     * Gets butConnect.
-     *
-     * @return Value of butConnect.
-     */
-    public Button getButConnect() {
-        return butConnect;
     }
 }

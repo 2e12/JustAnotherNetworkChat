@@ -2,6 +2,7 @@ package janc.frontend;
 
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Model {
@@ -9,108 +10,65 @@ public class Model {
     private SimpleStringProperty writtenMessage = new SimpleStringProperty("");
     private static SimpleStringProperty output = new SimpleStringProperty("");
     private SimpleBooleanProperty warning = new SimpleBooleanProperty(false);
+    private SimpleIntegerProperty sroll = new SimpleIntegerProperty(0);
 
-    /**
-     * Used for adding Listeners
-     * @return the value of changeSite
-     */
-    public SimpleBooleanProperty changeSiteProperty() {
-        return changeSite;
+    public int getSroll() {
+        return sroll.get();
     }
 
-    /**
-     * Used for adding Listeners
-     * @return the value of writtenMessage
-     */
-    public SimpleStringProperty writtenMessageProperty() {
-        return writtenMessage;
+    public SimpleIntegerProperty srollProperty() {
+        return sroll;
     }
 
-    /**
-     * Used for adding Listeners
-     * @return the value of output
-     */
-    public static SimpleStringProperty outputProperty() {
-        return output;
+    public void setSroll(int sroll) {
+        this.sroll.set(sroll);
     }
 
-    /**
-     * Used for adding Listeners
-     * @return the value of warning
-     */
+    public boolean isWarning() {
+        return warning.get();
+    }
+
     public SimpleBooleanProperty warningProperty() {
         return warning;
     }
 
-    /**
-     * Gets changeSite.
-     *
-     * @return Value of changeSite.
-     */
-    public SimpleBooleanProperty getChangeSite() {
-        return changeSite;
+    public void setWarning(boolean warning) {
+        this.warning.set(warning);
     }
 
-    /**
-     * Sets new output.
-     *
-     * @param output New value of output.
-     */
+    public static String getOutput() {
+        return output.get();
+    }
+
+    public static SimpleStringProperty outputProperty() {
+        return output;
+    }
+
     public static void setOutput(String output) {
         Model.output.set(output);
     }
 
-    /**
-     * Gets output.
-     *
-     * @return Value of output.
-     */
-    public static SimpleStringProperty getOutput() {
-        return output;
+    public String getWrittenMessage() {
+        return writtenMessage.get();
     }
 
-    /**
-     * Sets new warning.
-     *
-     * @param warning New value of warning.
-     */
-    public void setWarning(Boolean warning) {
-        this.warning.set(warning);
+    public SimpleStringProperty writtenMessageProperty() {
+        return writtenMessage;
     }
 
-    /**
-     * Sets new writtenMessage.
-     *
-     * @param writtenMessage New value of writtenMessage.
-     */
     public void setWrittenMessage(String writtenMessage) {
         this.writtenMessage.set(writtenMessage);
     }
 
-    /**
-     * Gets writtenMessage.
-     *
-     * @return Value of writtenMessage.
-     */
-    public SimpleStringProperty getWrittenMessage() {
-        return writtenMessage;
+    public boolean isChangeSite() {
+        return changeSite.get();
     }
 
-    /**
-     * Gets warning.
-     *
-     * @return Value of warning.
-     */
-    public SimpleBooleanProperty getWarning() {
-        return warning;
+    public SimpleBooleanProperty changeSiteProperty() {
+        return changeSite;
     }
 
-    /**
-     * Sets new changeSite.
-     *
-     * @param changeSite New value of changeSite.
-     */
-    public void setChangeSite(Boolean changeSite) {
+    public void setChangeSite(boolean changeSite) {
         this.changeSite.set(changeSite);
     }
 }
