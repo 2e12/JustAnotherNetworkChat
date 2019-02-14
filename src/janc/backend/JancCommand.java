@@ -16,7 +16,7 @@ public abstract class JancCommand {
     }
 
     //Pass parameters to the parseFromString Function
-    public JancCommand(String[] parts, Socket source) {
+    public JancCommand(String[] parts, Socket source) throws MalformedCommandException {
         parseFromString(parts);
         setSourceSocket(source);
     }
@@ -25,5 +25,5 @@ public abstract class JancCommand {
 
     abstract void send(Socket socket) throws IOException;
 
-    abstract void parseFromString(String[] parts);
+    abstract void parseFromString(String[] parts) throws MalformedCommandException;
 }

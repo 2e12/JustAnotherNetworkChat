@@ -13,7 +13,7 @@ public class SendMessage extends JancCommand{
     String message;
 
     //Init neeaded parameters
-    public SendMessage(String[] parts, Socket source){
+    public SendMessage(String[] parts, Socket source) throws MalformedCommandException {
         super(parts, source);
     }
 
@@ -29,13 +29,15 @@ public class SendMessage extends JancCommand{
     }
 
     @Override
-    void parseFromString(String[] parts) {
+    void parseFromString(String[] parts) throws MalformedCommandException {
         if(parts.length == 6) {
             this.sessionKey = parts[1];
             this.fromUsername = parts[2];
             this.toUsername = parts[3];
             this.timestamp = parts[4];
             this.message = parts[5];
+        } else {
+            throw new MalformedCommandException("Wrong number of Paramteres");
         }
     }
 }

@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public class CloseConnection extends JancCommand{
 
-    public CloseConnection(String[] parts, Socket source){
+    public CloseConnection(String[] parts, Socket source) throws MalformedCommandException {
         super(parts, source);
         try {
             source.close();
@@ -25,7 +25,9 @@ public class CloseConnection extends JancCommand{
     }
 
     @Override
-    void parseFromString(String[] parts) {
-
+    void parseFromString(String[] parts) throws MalformedCommandException {
+        if (parts.length != 1) {
+            throw new MalformedCommandException("Wrong number of Paramteres");
+        }
     }
 }

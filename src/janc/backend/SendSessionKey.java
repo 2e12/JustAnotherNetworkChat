@@ -9,7 +9,7 @@ public class SendSessionKey extends JancCommand{
     private String username;
     private String sessionKey;
 
-    public SendSessionKey(String[] parts, Socket source) {
+    public SendSessionKey(String[] parts, Socket source) throws MalformedCommandException {
         super(parts, source);
     }
 
@@ -25,10 +25,12 @@ public class SendSessionKey extends JancCommand{
     }
 
     @Override
-    void parseFromString(String[] parts) {
+    void parseFromString(String[] parts) throws MalformedCommandException {
         if(parts.length == 3){
             this.username = parts[1];
             this.sessionKey = parts[2];
+        } else {
+            throw new MalformedCommandException("Wrong number of Paramteres");
         }
     }
 }
