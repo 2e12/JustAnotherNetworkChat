@@ -25,5 +25,5 @@ public abstract class JancCommand {
 
     abstract void send(Socket socket) throws IOException;
 
-    abstract void parseFromString(String[] parts);
+    abstract void parseFromString(String[] parts) throws MalformedCommandException;
 }
