@@ -2,6 +2,8 @@ package janc.backend;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class SendMessage extends JancCommand{
 
@@ -21,6 +23,18 @@ public class SendMessage extends JancCommand{
     void handle() {
         System.out.println("[Message] " + this.fromUsername + ": " + this.message);
         JancProtocolHandler.getInstance().broadcastToAllClients("dsb;" + this.fromUsername + ";" + this.timestamp + ";" + this.message);
+        try {
+            Connection connection = ConnectionFactory.getInstance().getConnection();
+            MessageJDBCDao protocol = new MessageJDBCDao(connection);
+            UserJDBCDao userDB = new UserJDBCDao(ConnectionFactory.getInstance().getConnection());
+            Message message = new Message();
+            message.setText(this.message);
+            message.setTimestamp(this.timestamp);
+            message.setUserid(userDB.getUserIdByName(this.fromUsername));
+            protocol.insertMessage(message);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
