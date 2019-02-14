@@ -34,6 +34,29 @@ public class Home{
     private HBox hbxDark;
     private HBox hbxThemes;
 
+    public Text getTxtWarning() {
+        return txtWarning;
+    }
+
+    public Scene getSceneHome(){
+        return sceneHome;
+    }
+
+    public TextField getTxtfdUsername() {
+        return txtfdUsername;
+    }
+
+    public PasswordField getTxtfdPassword() {
+        return txtfdPassword;
+    }
+
+    public TextField getTxtfdAdress() {
+        return txtfdAdress;
+    }
+
+    public Button getButConnect() {
+        return butConnect;
+    }
 
     /**
      * This is the creator of the Home class. This method creates the whole GUI in JavaFX.

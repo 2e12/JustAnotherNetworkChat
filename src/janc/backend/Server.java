@@ -31,7 +31,8 @@ public class Server
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String response = in.readLine();
                 if (response != null) {
-                    JancProtocolHandler.getInstance().ParseFromString(response, socket, null);
+                    ServerClientConnection connection = new ServerClientConnection(socket, null);
+                    JancProtocolHandler.getInstance().ParseFromString(response, connection);
                 }
             }
         } catch (IOException e) {

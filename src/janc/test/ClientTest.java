@@ -23,7 +23,7 @@ public class ClientTest {
 
             while (!socket.isClosed()) {
                 String input = scanner.nextLine();
-                out.println("msg;null;Gibb;null;" + System.currentTimeMillis() + ";" + input + ";");
+                out.println("msg;null;Gibb1;null;" + System.currentTimeMillis() + ";" + input + ";");
             }
 
 

@@ -9,15 +9,15 @@ public class RequestSessionKey extends JancCommand{
     String username;
     String password;
 
-    public RequestSessionKey(String[] parts, Socket source) throws MalformedCommandException {
-        super(parts, source);
+    public RequestSessionKey(String[] parts, ServerClientConnection connection) throws MalformedCommandException {
+        super(parts, connection);
     }
 
     @Override
     void handle() {
         String[] parts = new String[]{"key", this.username, null};
         try {
-            SendSessionKey key = new SendSessionKey(parts, this.getSourceSocket());
+            SendSessionKey key = new SendSessionKey(parts, this.getConnection());
             try {
                 User user = new User();
                 user.setUsername(this.username);
@@ -31,6 +31,8 @@ public class RequestSessionKey extends JancCommand{
                         userLogin.insertUser(user);
                         sendWelcomeMessage = true;
                     }
+                    getConnection().setUser(user);
+
                     key.send(this.getSourceSocket());
                     JancProtocolHandler.getInstance().putUserConnection(user, this.getSourceSocket());
                     System.out.println("[Login] Hello " + user.getUsername() + this.getSourceSocket().getInetAddress());

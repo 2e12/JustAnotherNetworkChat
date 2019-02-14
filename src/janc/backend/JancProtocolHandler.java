@@ -52,17 +52,16 @@ public class JancProtocolHandler {
     }
 
     //Parse the Command and passing the Arguments to the registerd command
-    public void ParseFromString(String input, Socket socket, ServerClientConnection connectionInfo) {
+    public void ParseFromString(String input, ServerClientConnection connection) {
         String[] parts = input.split(";");
-        this.connectionInfo = connectionInfo;
-        this.ExecuteCommand(parts, socket);
+        this.ExecuteCommand(parts, connection);
     }
 
-    private void ExecuteCommand(String[] inputParts, Socket socket) {
+    private void ExecuteCommand(String[] inputParts, ServerClientConnection connection) {
         try {
             //Get from command string the command class and pass the parameters and socket connection
-            Constructor constructor = JancProtocolHandler.commands.get(inputParts[0]).getConstructor(String[].class, Socket.class);
-            JancCommand obj = (JancCommand) constructor.newInstance((Object) inputParts, socket);
+            Constructor constructor = JancProtocolHandler.commands.get(inputParts[0]).getConstructor(String[].class, ServerClientConnection.class);
+            JancCommand obj = (JancCommand) constructor.newInstance((Object) inputParts, connection);
             obj.handle();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
