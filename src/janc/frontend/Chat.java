@@ -140,7 +140,7 @@ public class Chat{
                 myTime = new Text(new SimpleDateFormat("HH:mm").format(date));
                 myVBox = new VBox();
                 myHBox = new HBox();
-                if (owner.equals(serverConnection.getuName())) {
+                if (owner.equals(serverConnection.getUName())) {
                     myText.setFill(Color.web("#FFFFFF"));
                     myText.setFont(Font.font("Arial", 20));
                     myText.setWrappingWidth(500);
