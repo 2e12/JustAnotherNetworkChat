@@ -8,6 +8,5 @@ enum loginstate { //Thus enum is required for checking later the login state
 
 public interface UserDao {
     public abstract void insertUser(User user);
-
     public abstract loginstate checkLoginCredentials(User user);
 }

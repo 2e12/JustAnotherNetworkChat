@@ -6,6 +6,11 @@ public class UserJDBCDao implements UserDao {
 
     private java.sql.Connection connection = null;
 
+    /**
+     * Constructor set the connection
+     *
+     * @param connection DB Connection that needed to be set.
+     */
     public UserJDBCDao(Connection connection) {
         this.connection = connection;
     }

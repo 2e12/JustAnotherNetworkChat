@@ -9,6 +9,11 @@ public class MessageJDBCDao implements MessageDao {
 
     Connection connection;
 
+    /**
+     * Constructor set the connection
+     *
+     * @param connection DB Connection that needed to be set.
+     */
     public MessageJDBCDao(Connection connection) {
         this.connection = connection;
     }
