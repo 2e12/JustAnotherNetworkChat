@@ -24,4 +24,13 @@ public interface UserDao {
      * @return LoginState This indicates, if the user is logged in, the password is wrong or the user doesn't exist
      */
     public abstract LoginState checkLoginCredentials(User user);
+
+
+    /**
+     * Loads the ID from an specific user from the database
+     *
+     * @param username The name of the user
+     * @return The user ID
+     */
+    public abstract int getUserIdByName(String username);
 }

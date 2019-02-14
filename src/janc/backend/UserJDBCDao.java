@@ -52,4 +52,22 @@ public class UserJDBCDao implements UserDao {
         }
 
     }
+
+    @Override
+    public int getUserIdByName(String username) {
+        int id = 0;
+        try {
+            String sql = "SELECT id FROM user WHERE username = ?";
+            PreparedStatement ps = this.connection.prepareStatement(sql);
+            ps.setString(1, username);
+
+            ResultSet result = ps.executeQuery();
+            if (result.next()) {
+                id = result.getInt(1);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return id;
+    }
 }
