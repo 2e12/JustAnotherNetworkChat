@@ -9,6 +9,7 @@ public class SendSessionKey extends JancCommand{
     private String username;
     private String sessionKey;
 
+
     public SendSessionKey(String[] parts, Socket source) throws MalformedCommandException {
         super(parts, source);
     }
