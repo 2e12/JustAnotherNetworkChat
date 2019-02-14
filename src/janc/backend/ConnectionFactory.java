@@ -21,10 +21,20 @@ public class ConnectionFactory {
         }
     }
 
+    /**
+     * Gets the SQL connection
+     *
+     * @return the SQL connection
+     */
     public Connection getConnection() {
         return connection;
     }
 
+    /**
+     * Get the singleton instance of the connection factory.
+     * @return singletone instance of ConnectionFactory
+     * @throws SQLException
+     */
     public static ConnectionFactory getInstance() throws SQLException {
         if (ConnectionFactory.instance == null) {
             ConnectionFactory.instance = new ConnectionFactory();

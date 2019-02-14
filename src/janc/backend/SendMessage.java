@@ -14,7 +14,7 @@ public class SendMessage extends JancCommand{
     String timestamp;
     String message;
 
-    //Init neeaded parameters
+
     public SendMessage(String[] parts, Socket source) throws MalformedCommandException {
         super(parts, source);
     }

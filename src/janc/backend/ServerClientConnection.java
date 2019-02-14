@@ -6,28 +6,12 @@ import java.net.Socket;
 public class ServerClientConnection extends Thread {
 
     private Socket clientConnection;
-    private String SessionKey;
+    private User user;
 
 
-    public Socket getClientConnection() {
-        return clientConnection;
-    }
-
-    public void setClientConnection(Socket clientConnection) {
+    public ServerClientConnection(Socket clientConnection, User user) {
         this.clientConnection = clientConnection;
-    }
-
-    public String getSessionKey() {
-        return SessionKey;
-    }
-
-    public void setSessionKey(String sessionKey) {
-        SessionKey = sessionKey;
-    }
-
-    public ServerClientConnection(Socket clientConnection, String sessionKey) {
-        this.clientConnection = clientConnection;
-        this.setSessionKey(sessionKey);
+        this.setUser(user);
     }
 
     public void run() {
@@ -48,5 +32,41 @@ public class ServerClientConnection extends Thread {
             }
             run = false;
         }
+    }
+
+    /**
+     * Gets clientConnection.
+     *
+     * @return Value of clientConnection.
+     */
+    public Socket getClientConnection() {
+        return clientConnection;
+    }
+
+    /**
+     * Sets new clientConnection.
+     *
+     * @param clientConnection New value of clientConnection.
+     */
+    public void setClientConnection(Socket clientConnection) {
+        this.clientConnection = clientConnection;
+    }
+
+    /**
+     * Sets new user.
+     *
+     * @param user New value of user.
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    /**
+     * Gets user.
+     *
+     * @return Value of user.
+     */
+    public User getUser() {
+        return user;
     }
 }

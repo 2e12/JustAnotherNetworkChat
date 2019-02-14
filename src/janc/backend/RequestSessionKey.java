@@ -32,8 +32,8 @@ public class RequestSessionKey extends JancCommand{
                         sendWelcomeMessage = true;
                     }
                     key.send(this.getSourceSocket());
-                    JancProtocolHandler.getInstance().putUserConnection(this.username, this.getSourceSocket(), null);
-                    System.out.println("[Login] Hello " + this.username + this.getSourceSocket().getInetAddress());
+                    JancProtocolHandler.getInstance().putUserConnection(user, this.getSourceSocket());
+                    System.out.println("[Login] Hello " + user.getUsername() + this.getSourceSocket().getInetAddress());
 
                     if (sendWelcomeMessage) {
                         var out = new PrintWriter(this.getSourceSocket().getOutputStream(), true);

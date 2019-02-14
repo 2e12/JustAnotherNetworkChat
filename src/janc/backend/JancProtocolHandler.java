@@ -45,8 +45,8 @@ public class JancProtocolHandler {
         }
     }
 
-    public void putUserConnection(String username, Socket socket, String sessionKey) {
-        ServerClientConnection connection = new ServerClientConnection(socket, sessionKey);
+    public void putUserConnection(User user, Socket socket) {
+        ServerClientConnection connection = new ServerClientConnection(socket, user);
         connections.add(connection);
         connection.start();
     }
