@@ -27,12 +27,20 @@ public class RequestSessionKey extends JancCommand{
 
                 loginstate state = userLogin.checkLoginCredentials(user);
                 if (state != loginstate.worngpassword) {
+                    boolean sendWelcomeMessage = false;
                     if (state == loginstate.nouser) {
                         userLogin.insertUser(user);
+                        sendWelcomeMessage = true;
                     }
                     key.send(this.getSourceSocket());
                     JancProtocolHandler.getInstance().putUserConnection(this.username, this.getSourceSocket(), null);
                     System.out.println("[Login] Hello " + this.username + this.getSourceSocket().getInetAddress());
+
+                    if (sendWelcomeMessage) {
+                        var out = new PrintWriter(this.getSourceSocket().getOutputStream(), true);
+                        out.println("dsb;Hello;" + System.currentTimeMillis() + ";Hello " + this.username + "! As we can see, you haven't got an account yet.... We created one for you! :);");
+                    }
+
                 } else {
                     getSourceSocket().close();
                 }
@@ -58,7 +66,7 @@ public class RequestSessionKey extends JancCommand{
             this.username = parts[1];
             this.password = parts[2];
         } else {
-            throw new MalformedCommandException("Wrong number of Paramteres");
+            throw new MalformedCommandException("Wrong number of paramteres");
         }
     }
 }

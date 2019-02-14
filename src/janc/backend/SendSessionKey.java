@@ -30,7 +30,7 @@ public class SendSessionKey extends JancCommand{
             this.username = parts[1];
             this.sessionKey = parts[2];
         } else {
-            throw new MalformedCommandException("Wrong number of Paramteres");
+            throw new MalformedCommandException("Wrong number of paramteres");
         }
     }
 }
