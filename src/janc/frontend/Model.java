@@ -2,6 +2,7 @@ package janc.frontend;
 
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Model {
@@ -9,6 +10,19 @@ public class Model {
     private SimpleStringProperty writtenMessage = new SimpleStringProperty("");
     private static SimpleStringProperty output = new SimpleStringProperty("");
     private SimpleBooleanProperty warning = new SimpleBooleanProperty(false);
+    private SimpleIntegerProperty sroll = new SimpleIntegerProperty(0);
+
+    public int getSroll() {
+        return sroll.get();
+    }
+
+    public SimpleIntegerProperty srollProperty() {
+        return sroll;
+    }
+
+    public void setSroll(int sroll) {
+        this.sroll.set(sroll);
+    }
 
     public boolean isWarning() {
         return warning.get();

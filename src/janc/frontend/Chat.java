@@ -17,6 +17,7 @@ import java.util.Date;
 
 
 public class Chat{
+    private Controller controller;
     private Scene sceneChat;
     private BorderPane bpPane;
     private Text txtHeader;
@@ -28,6 +29,11 @@ public class Chat{
     private VBox vbxContent;
     private String userName;
     private HBox hbxSend;
+    private Text myText;
+    private Text myTime;
+    private Text myOwner;
+    private VBox myVBox;
+    private HBox myHBox;
 
     public void setConnectedIP(String connectedIP) {
         this.connectedIP = connectedIP;
@@ -62,7 +68,12 @@ public class Chat{
         return userName;
     }
 
-    public Chat(){
+    public ScrollPane getSpPane() {
+        return spPane;
+    }
+
+    public Chat(Controller controller){
+        this.controller = controller;
         //Create the header content
         txtHeader = new Text("chatroom:");
         txtHeader.setFont(new Font("Arial", 35));
@@ -82,6 +93,7 @@ public class Chat{
         spPane.setMaxHeight(600);
         spPane.setMinHeight(600);
         spPane.setContent(vbxMessages);
+        spPane.vvalueProperty().bind(vbxMessages.heightProperty());
 
         //Create the content of the input field
         txtfdActualMessage = new TextField();
@@ -89,7 +101,7 @@ public class Chat{
 
         //Create the send-button and the HBox
         butSend = new Button("send");
-        butSend.setStyle("-fx-background-color: #7A9E9F; -fx-font-family: Arial; -fx-font-size: 32px; -fx-pref-width: 190px; -fx-pref-height: 35px; -fx-text-fill: #FFFFFF;");
+        butSend.setStyle("-fx-background-color: #7A9E9F; -fx-font-family: Arial; -fx-font-size: 25px; -fx-pref-width: 150px; -fx-pref-height: 23px; -fx-text-fill: #FFFFFF;");
         hbxSend = new HBox();
         hbxSend.getChildren().add(butSend);
         hbxSend.setHgrow(butSend, Priority.ALWAYS);
@@ -124,11 +136,11 @@ public class Chat{
                 Timestamp ts = new Timestamp(Long.parseLong(parts[2]));
                 Date date = new Date(ts.getTime());
                 String msg = parts[3];
+                myText = new Text(msg);
+                myTime = new Text(new SimpleDateFormat("HH:mm").format(date));
+                myVBox = new VBox();
+                myHBox = new HBox();
                 if (owner.equals(serverConnection.getuName())) {
-                    Text myText = new Text(msg);
-                    Text myTime = new Text(new SimpleDateFormat("HH:mm").format(date));
-                    VBox myVBox = new VBox();
-                    HBox myHBox = new HBox();
                     myText.setFill(Color.web("#FFFFFF"));
                     myText.setFont(Font.font("Arial", 20));
                     myText.setWrappingWidth(500);
@@ -139,15 +151,9 @@ public class Chat{
                     myHBox.getChildren().add(myTime);
                     myVBox.getChildren().add(myText);
                     myVBox.getChildren().add(myHBox);
-                    vbxMessages.setAlignment(Pos.CENTER_RIGHT);
                     vbxMessages.getChildren().add(myVBox);
-                    spPane.setVvalue(spPane.getMaxHeight());
                 } else {
-                    Text myOwner = new Text(owner + ":");
-                    Text myText = new Text(msg);
-                    Text myTime = new Text(new SimpleDateFormat("HH:mm").format(date));
-                    VBox myVBox = new VBox();
-                    HBox myHBox = new HBox();
+                    myOwner = new Text(owner + ":");
                     myOwner.setFont(Font.font("Arial", 16));
                     myOwner.setFill(Color.web("#FFFFFF"));
                     myText.setFill(Color.web("#FFFFFF"));
@@ -160,13 +166,10 @@ public class Chat{
                     myVBox.getChildren().add(myOwner);
                     myVBox.getChildren().add(myText);
                     myVBox.getChildren().add(myHBox);
-                    vbxMessages.setAlignment(Pos.CENTER_LEFT);
                     vbxMessages.getChildren().add(myVBox);
-                    spPane.setVvalue(spPane.getMaxHeight());
                 }
-
             }else {
-                System.out.println("Other Command!");
+                System.out.println("Logging in...");
             }
         });
     }
