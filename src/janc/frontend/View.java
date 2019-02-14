@@ -48,6 +48,10 @@ public class View{
                 }
             }
         });
+        home.getRbutBright().setOnAction(actionEvent -> controller.setColorTheme("bright"));
+        home.getRbutDark().setOnAction(actionEvent -> controller.setColorTheme("dark"));
+        chat.getRbutBright().setOnAction(actionEvent -> controller.setColorTheme("bright"));
+        chat.getRbutDark().setOnAction(actionEvent -> controller.setColorTheme("dark"));
     }
 
     /**
@@ -62,6 +66,24 @@ public class View{
                 chat.displayMessage(newValue));
         model.warningProperty().addListener((observable, oldValue, newValue) ->
                 home.getTxtWarning().setText("incorrect informations!"));
+        model.colorThemeProperty().addListener((observable, oldValue, newValue) ->
+                changeThemes(newValue));
+    }
+
+    private void changeThemes(String theme) {
+        home.changeStyle(theme);
+        chat.changeStyle(theme);
+        if (theme.equals("bright")) {
+            home.getRbutBright().setSelected(true);
+            chat.getRbutBright().setSelected(true);
+            home.getRbutDark().setSelected(false);
+            chat.getRbutDark().setSelected(false);
+        } else {
+            home.getRbutBright().setSelected(false);
+            chat.getRbutBright().setSelected(false);
+            home.getRbutDark().setSelected(true);
+            chat.getRbutDark().setSelected(true);
+        }
     }
 
     /**

@@ -46,4 +46,8 @@ public class Controller {
             model.setWrittenMessage(message);
         }
     }
+
+    public void setColorTheme(String themeName) {
+        model.setColorTheme(themeName);
+    }
 }

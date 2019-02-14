@@ -9,6 +9,15 @@ public class Model {
     private SimpleStringProperty writtenMessage = new SimpleStringProperty("");
     private static SimpleStringProperty output = new SimpleStringProperty("");
     private SimpleBooleanProperty warning = new SimpleBooleanProperty(false);
+    private SimpleStringProperty colorTheme = new SimpleStringProperty("bright");
+
+    /**
+     * Used for adding Listeners
+     * @return the value of colorTheme
+     */
+    public SimpleStringProperty colorThemeProperty() {
+        return colorTheme;
+    }
 
     /**
      * Used for adding Listeners
@@ -112,5 +121,23 @@ public class Model {
      */
     public void setChangeSite(Boolean changeSite) {
         this.changeSite.set(changeSite);
+    }
+
+    /**
+     * Sets new colorTheme.
+     *
+     * @param colorTheme New value of colorTheme.
+     */
+    public void setColorTheme(String colorTheme) {
+        this.colorTheme.set(colorTheme);
+    }
+
+    /**
+     * Gets colorTheme.
+     *
+     * @return Value of colorTheme.
+     */
+    public SimpleStringProperty getColorTheme() {
+        return colorTheme;
     }
 }

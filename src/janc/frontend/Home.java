@@ -3,9 +3,8 @@ package janc.frontend;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,12 +25,20 @@ public class Home{
     private HBox hbxConnect;
     private Button butConnect;
     private Text txtWarning;
+    private final ToggleGroup tgThemes;
+    private RadioButton rbutBright;
+    private RadioButton rbutDark;
+    private Label lblBright;
+    private Label lblDark;
+    private HBox hbxBright;
+    private HBox hbxDark;
+    private HBox hbxThemes;
 
 
     /**
      * This is the creator of the Home class. This method creates the whole GUI in JavaFX.
      */
-    public Home(){
+    public Home() {
         //Create content of the header element
         hbxHeader = new HBox();
         txtHeader = new Text("Just Another Network Chat");
@@ -44,7 +51,7 @@ public class Home{
         //Create content of the selection-menu
         txtTitle = new Text("establish new connection:");
         txtTitle.setStyle("-fx-font-size: 18px");
-        txtTitle.setFill(Paint.valueOf("#4F6367"));
+        txtTitle.setFill(Color.web("#4F6367"));
         txtWarning = new Text();
         txtWarning.setFill(Color.web("#FC4225"));
         txtWarning.setStyle("-fx-font-family: Arial; -fx-font-size: 18px");
@@ -84,13 +91,53 @@ public class Home{
         vbxInputField.setMargin(txtfdPassword, new Insets(10, 0, 10, 52));
         vbxInputField.setMargin(hbxConnect, new Insets(10, 48, 0, 52));
 
+        //Create nodes for the footer
+        tgThemes = new ToggleGroup();
+        rbutBright = new RadioButton();
+        rbutDark = new RadioButton();
+        lblBright = new Label("Bright theme:");
+        lblDark = new Label("Dark theme:");
+        rbutBright.setToggleGroup(tgThemes);
+        rbutDark.setToggleGroup(tgThemes);
+        rbutBright.setSelected(true);
+        rbutDark.setSelected(false);
+        hbxBright = new HBox();
+        hbxDark = new HBox();
+        hbxBright.getChildren().addAll(lblBright, rbutBright);
+        hbxDark.getChildren().addAll(lblDark, rbutDark);
+        hbxThemes = new HBox();
+        hbxThemes.getChildren().addAll(hbxBright, hbxDark);
+        hbxThemes.setSpacing(65);
+
         //Add everything to a pane
         bpPane = new BorderPane();
         bpPane.setTop(hbxHeader);
         bpPane.setCenter(vbxInputField);
+        bpPane.setBottom(hbxThemes);
+        bpPane.setMargin(hbxThemes, new Insets(0, 0, 30, 52));
 
         //Add everything to a scene
         sceneHome = new Scene(bpPane, 400, 600);
+    }
+
+    public void changeStyle(String theme) {
+        if (theme.equals("bright")) {
+            rbutBright.setSelected(true);
+            rbutDark.setSelected(false);
+            txtHeader.setFill(Color.web("#4F6367"));
+            txtTitle.setFill(Color.web("#4F6367"));
+            bpPane.setStyle("-fx-background-color: #FFFFFF");
+            lblBright.setTextFill(Color.web("#000000"));
+            lblDark.setTextFill(Color.web("#000000"));
+        } else {
+            rbutBright.setSelected(false);
+            rbutDark.setSelected(true);
+            txtHeader.setFill(Color.web("#FFFFFF"));
+            txtTitle.setFill(Color.web("#FFFFFF"));
+            bpPane.setStyle("-fx-background-color: #363636");
+            lblBright.setTextFill(Color.web("#FFFFFF"));
+            lblDark.setTextFill(Color.web("#FFFFFF"));
+        }
     }
 
     /**
@@ -145,5 +192,23 @@ public class Home{
      */
     public Button getButConnect() {
         return butConnect;
+    }
+
+    /**
+     * Gets rbutBright.
+     *
+     * @return Value of rbutBright.
+     */
+    public RadioButton getRbutBright() {
+        return rbutBright;
+    }
+
+    /**
+     * Gets rbutDark.
+     *
+     * @return Value of rbutDark.
+     */
+    public RadioButton getRbutDark() {
+        return rbutDark;
     }
 }

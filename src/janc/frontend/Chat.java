@@ -1,11 +1,10 @@
 package janc.frontend;
 
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -35,6 +34,14 @@ public class Chat{
     private Button butSend;
     private String connectedIP;
     private ServerConnection serverConnection;
+    private final ToggleGroup tgThemes;
+    private RadioButton rbutBright;
+    private RadioButton rbutDark;
+    private Label lblBright;
+    private Label lblDark;
+    private HBox hbxBright;
+    private HBox hbxDark;
+    private HBox hbxThemes;
 
     /**
      * This method is the constructor of the Chat class. Here the whole GUI for the chat tab gets built.
@@ -78,10 +85,30 @@ public class Chat{
         vbxContent.getChildren().addAll(spPane, txtfdActualMessage, hbxSend);
         vbxContent.setSpacing(40);
 
+        //Create nodes for the footer
+        tgThemes = new ToggleGroup();
+        rbutBright = new RadioButton();
+        rbutDark = new RadioButton();
+        lblBright = new Label("Bright theme:");
+        lblDark = new Label("Dark theme:");
+        rbutBright.setToggleGroup(tgThemes);
+        rbutDark.setToggleGroup(tgThemes);
+        rbutBright.setSelected(true);
+        rbutDark.setSelected(false);
+        hbxBright = new HBox();
+        hbxDark = new HBox();
+        hbxBright.getChildren().addAll(lblBright, rbutBright);
+        hbxDark.getChildren().addAll(lblDark, rbutDark);
+        hbxThemes = new HBox();
+        hbxThemes.getChildren().addAll(hbxBright, hbxDark);
+        hbxThemes.setSpacing(65);
+
         //Add everything to a Scene
         bpPane = new BorderPane();
         bpPane.setTop(vbxHeader);
         bpPane.setCenter(vbxContent);
+        bpPane.setBottom(hbxThemes);
+        bpPane.setMargin(hbxThemes, new Insets(0, 0, 30, 52));
         sceneChat = new Scene(bpPane, 800, 950);
     }
 
@@ -121,7 +148,7 @@ public class Chat{
                 myTime = new Text(new SimpleDateFormat("HH:mm").format(date));
                 myVBox = new VBox();
                 myHBox = new HBox();
-                if (owner.equals(serverConnection.getuName())) {
+                if (owner.equals(serverConnection.getUName())) {
                     myText.setFill(Color.web("#FFFFFF"));
                     myText.setFont(Font.font("Arial", 20));
                     myText.setWrappingWidth(500);
@@ -153,6 +180,28 @@ public class Chat{
                 System.out.println("Logging in...");
             }
         });
+    }
+
+    public void changeStyle(String theme) {
+        if (theme.equals("bright")) {
+            rbutBright.setSelected(true);
+            rbutDark.setSelected(false);
+            txtHeader.setFill(Color.web("#4F6367"));
+            txtConnection.setFill(Color.web("#4F6367"));
+            bpPane.setStyle("-fx-background-color: #FFFFFF");
+            lblBright.setTextFill(Color.web("#000000"));
+            lblDark.setTextFill(Color.web("#000000"));
+            spPane.setStyle("-fx-background: #FFFFFF");
+        } else {
+            rbutBright.setSelected(true);
+            rbutDark.setSelected(false);
+            txtHeader.setFill(Color.web("#FFFFFF"));
+            txtConnection.setFill(Color.web("#FFFFFF"));
+            bpPane.setStyle("-fx-background-color: #363636");
+            lblBright.setTextFill(Color.web("#FFFFFF"));
+            lblDark.setTextFill(Color.web("#FFFFFF"));
+            spPane.setStyle("-fx-background: #363636");
+        }
     }
 
     /**
@@ -225,5 +274,23 @@ public class Chat{
      */
     public ScrollPane getSpPane() {
         return spPane;
+    }
+
+    /**
+     * Gets rbutBright.
+     *
+     * @return Value of rbutBright.
+     */
+    public RadioButton getRbutBright() {
+        return rbutBright;
+    }
+
+    /**
+     * Gets rbutDark.
+     *
+     * @return Value of rbutDark.
+     */
+    public RadioButton getRbutDark() {
+        return rbutDark;
     }
 }
