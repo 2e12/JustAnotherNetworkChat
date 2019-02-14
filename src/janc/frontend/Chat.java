@@ -9,9 +9,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 public class Chat{
     private Controller controller;
@@ -31,7 +33,21 @@ public class Chat{
     private Text myOwner;
     private VBox myVBox;
     private HBox myHBox;
+
+    public void setConnectedIP(String connectedIP) {
+        this.connectedIP = connectedIP;
+    }
+
     private Button butSend;
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setTxtConnectionText(String txt) {
+        this.txtConnection.setText(txt);
+    }
+
     private String connectedIP;
     private ServerConnection serverConnection;
     private final ToggleGroup tgThemes;
@@ -43,10 +59,27 @@ public class Chat{
     private HBox hbxDark;
     private HBox hbxThemes;
 
-    /**
-     * This method is the constructor of the Chat class. Here the whole GUI for the chat tab gets built.
-     */
-    public Chat(){
+    public Scene getSceneChat() {
+        return sceneChat;
+    }
+
+    public Button getButSend() {
+        return butSend;
+    }
+
+    public TextField getTxtfdActualMessage() {
+        return txtfdActualMessage;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public ScrollPane getSpPane() {
+        return spPane;
+    }
+
+    public Chat(Controller controller){
         this.controller = controller;
         //Create the header content
         txtHeader = new Text("chatroom:");
@@ -57,6 +90,7 @@ public class Chat{
         txtConnection.setFill(Color.web("#4f6367"));
         vbxHeader = new VBox();
         vbxHeader.getChildren().addAll(txtHeader, txtConnection);
+
 
         //Create the chat
         vbxMessages = new VBox();
@@ -111,31 +145,16 @@ public class Chat{
         bpPane.setMargin(hbxThemes, new Insets(0, 0, 30, 52));
         sceneChat = new Scene(bpPane, 800, 950);
     }
-
-    /**
-     * This method is used for send a message to the server.
-     * @param message this parameter is the whole message which to user has made.
-     * @param uName this parameter is the name of the user which sent the message. Later the app uses this param for styling the message in the GUI.
-     */
     public void sendMessage(String message, String uName) {
         serverConnection.sendMessageToServer(message, uName);
         txtfdActualMessage.setText("");
     }
 
-    /**
-     * This method creates a new connection to a specified server.
-     * @param ipAdress this is the ip-adress of the server where the user can send his messages to.
-     * @param uName this is the name of user who wants to connect to the server. This param is used to identify the sender.
-     * @param pWord this is the password of the user. It's also used for the identification.
-     */
     public void setConnection(String ipAdress, String uName, String pWord) {
         this.serverConnection = new ServerConnection(ipAdress, uName, pWord);
     }
 
-    /**
-     * This huge method adds the messages, which are distributed by the server, to the GUI.
-     * @param message For sure the method needs to know, what the content of the message is. This param contains the sending user, a timestamp and the message himself.
-     */
+
     public void displayMessage(String message) {
         String[] parts = message.split(";");
         Platform.runLater(() -> {
