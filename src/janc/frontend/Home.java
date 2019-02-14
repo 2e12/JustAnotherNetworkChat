@@ -27,6 +27,10 @@ public class Home{
     private Button butConnect;
     private Text txtWarning;
 
+    public Text getTxtWarning() {
+        return txtWarning;
+    }
+
     public Scene getSceneHome(){
         return sceneHome;
     }
@@ -61,6 +65,9 @@ public class Home{
         txtTitle = new Text("establish new connection:");
         txtTitle.setStyle("-fx-font-size: 18px");
         txtTitle.setFill(Paint.valueOf("#4F6367"));
+        txtWarning = new Text();
+        txtWarning.setFill(Color.web("#FC4225"));
+        txtWarning.setStyle("-fx-font-family: Arial; -fx-font-size: 18px");
         txtfdAdress = new TextField();
         txtfdAdress.setPromptText("ip-adress of your server");
         txtfdAdress.setMaxWidth(300);
@@ -88,9 +95,10 @@ public class Home{
 
         //Add the whole content to a vbox
         vbxInputField = new VBox();
-        vbxInputField.getChildren().addAll(txtTitle, txtfdAdress, txtfdUsername, txtfdPassword, hbxConnect);
+        vbxInputField.getChildren().addAll(txtTitle, txtWarning, txtfdAdress, txtfdUsername, txtfdPassword, hbxConnect);
         vbxInputField.setMargin(txtTitle, new Insets(40, 0, 30, 52));
-        vbxInputField.setMargin(txtfdAdress, new Insets(0, 0, 10, 52));
+        vbxInputField.setMargin(txtWarning, new Insets(0, 0, 10, 52));
+        vbxInputField.setMargin(txtfdAdress, new Insets(10, 0, 10, 52));
         vbxInputField.setMargin(txtfdUsername, new Insets(10, 0, 10, 52));
         vbxInputField.setMargin(txtfdPassword, new Insets(10, 0, 10, 52));
         vbxInputField.setMargin(txtfdPassword, new Insets(10, 0, 10, 52));

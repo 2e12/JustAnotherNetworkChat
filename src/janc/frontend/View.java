@@ -27,13 +27,17 @@ public class View{
         return home;
     }
 
+    public void setHome(Home home) {
+        this.home = home;
+    }
+
     private void registerButtonActionHandler() throws NullPointerException{
-        home.getButConnect().setOnAction(actionEvent -> controller.handleButtonClickSideSwitch());
+        home.getButConnect().setOnAction(actionEvent -> controller.handleButtonClickSideSwitch(home.getTxtfdAdress().getText(), home.getTxtfdUsername().getText(), home.getTxtfdPassword().getText()));
         home.getSceneHome().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.ENTER) {
-                    controller.handleButtonClickSideSwitch();
+                    controller.handleButtonClickSideSwitch(home.getTxtfdAdress().getText(), home.getTxtfdUsername().getText(), home.getTxtfdPassword().getText());
                 }
             }
         });
@@ -55,5 +59,7 @@ public class View{
                 chat.sendMessage(newValue, chat.getUserName()));
         model.outputProperty().addListener((observable, oldValue, newValue) ->
                 chat.displayMessage(newValue));
+        model.warningProperty().addListener((observable, oldValue, newValue) ->
+                home.getTxtWarning().setText("incorrect informations!"));
     }
 }
