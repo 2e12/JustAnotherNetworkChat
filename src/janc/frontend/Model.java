@@ -8,6 +8,19 @@ public class Model {
     private SimpleBooleanProperty changeSite = new SimpleBooleanProperty(false);
     private SimpleStringProperty writtenMessage = new SimpleStringProperty("");
     private static SimpleStringProperty output = new SimpleStringProperty("");
+    private SimpleBooleanProperty warning = new SimpleBooleanProperty(false);
+
+    public boolean isWarning() {
+        return warning.get();
+    }
+
+    public SimpleBooleanProperty warningProperty() {
+        return warning;
+    }
+
+    public void setWarning(boolean warning) {
+        this.warning.set(warning);
+    }
 
     public static String getOutput() {
         return output.get();
