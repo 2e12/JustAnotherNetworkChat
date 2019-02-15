@@ -11,16 +11,19 @@ import java.util.List;
 public class Server
 {
 
-    private List<Socket> socketList = new ArrayList<Socket>();
-
-    //Creating Server Instance
+    /**
+     * The startpoint of the of the server backend part
+     *
+     * @param args Arguments. Not relevant. Will be ignored anyway.
+     */
     public static void main(String[] args) {
         Server server = new Server();
     }
 
-    //Listening for initial requests ("commands")
+    /**
+     * Searches for clients. When one client is found, a socket connection will be created.
+     */
     public Server(){
-
         try {
             ServerSocket listener = new ServerSocket(9980);
             System.out.println("Server is running on port " + listener.getLocalPort());
@@ -32,7 +35,7 @@ public class Server
                 String response = in.readLine();
                 if (response != null) {
                     ServerClientConnection connection = new ServerClientConnection(socket, null);
-                    JancProtocolHandler.getInstance().ParseFromString(response, connection);
+                    JancProtocolHandler.getInstance().parseFromString(response, connection);
                 }
             }
         } catch (IOException e) {

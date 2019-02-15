@@ -39,7 +39,7 @@ public class UserJDBCDao implements UserDao {
             if (result.next()) {
                 String password = result.getString("password");
                 if (password.equals(user.getPassword())) {
-                    return LoginState.correct;
+                    return LoginState.loggedIn;
                 } else {
                     return LoginState.worngPassword;
                 }

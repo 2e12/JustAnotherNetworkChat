@@ -13,6 +13,11 @@ public class JancProtocolHandler {
     private ServerClientConnection connectionInfo;
     private static JancProtocolHandler instance;
 
+    /**
+     * This method returns a singleton instance of this class. In case there isn't an instance, it creates one.
+     *
+     * @return This returns a singleton instance of JancProtocolHandler.
+     */
     public static JancProtocolHandler getInstance() {
         if (instance == null) {
             instance = new JancProtocolHandler();
@@ -24,12 +29,14 @@ public class JancProtocolHandler {
 
 
     //Map for the protocl commands
-    static Map<String, Class> commands = new HashMap<>();
+    private static Map<String, Class> commands = new HashMap<>();
 
     //All open connections
-    static List<ServerClientConnection> connections = new ArrayList<>();
+    private static List<ServerClientConnection> connections = new ArrayList<>();
 
-    //Constructor. Registers Commands
+    /**
+     * Registers all commands that needed to be handled
+     */
     private JancProtocolHandler() {
         JancProtocolHandler.registerCommand("lgn", RequestSessionKey.class);
         JancProtocolHandler.registerCommand("msg", SendMessage.class);
@@ -37,6 +44,10 @@ public class JancProtocolHandler {
         JancProtocolHandler.registerCommand("req", RequestMessages.class);
     }
 
+    /**
+     * Send a command/message to all clients
+     * @param command The command as string
+     */
     public void broadcastToAllClients(String command){
         for(ServerClientConnection connection: connections){
             try {
@@ -46,19 +57,29 @@ public class JancProtocolHandler {
         }
     }
 
+    /**
+     * Stores an user connection
+     * @param user The user object
+     * @param socket The socket to the user
+     */
     public void putUserConnection(User user, Socket socket) {
         ServerClientConnection connection = new ServerClientConnection(socket, user);
         connections.add(connection);
         connection.start();
     }
 
-    //Parse the Command and passing the Arguments to the registerd command
-    public void ParseFromString(String input, ServerClientConnection connection) {
+    /**
+     * Splits the string to an array and pass it further to executeCommand method and from there to the command class
+     *
+     * @param input      The input command
+     * @param connection The connection information form the user
+     */
+    public void parseFromString(String input, ServerClientConnection connection) {
         String[] parts = input.split(";");
-        this.ExecuteCommand(parts, connection);
+        this.executeCommand(parts, connection);
     }
 
-    private void ExecuteCommand(String[] inputParts, ServerClientConnection connection) {
+    private void executeCommand(String[] inputParts, ServerClientConnection connection) {
         try {
             //Get from command string the command class and pass the parameters and socket connection
             Constructor constructor = JancProtocolHandler.commands.get(inputParts[0]).getConstructor(String[].class, ServerClientConnection.class);

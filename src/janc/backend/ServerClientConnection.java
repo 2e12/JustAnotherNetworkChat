@@ -8,19 +8,27 @@ public class ServerClientConnection extends Thread {
     private Socket clientConnection;
     private User user;
 
-
+    /**
+     * The constructor. Setup things.
+     *
+     * @param clientConnection The socket connection to an user.
+     * @param user             The user whose waiting for commands.
+     */
     public ServerClientConnection(Socket clientConnection, User user) {
         this.clientConnection = clientConnection;
         this.setUser(user);
     }
 
+    /**
+     * This method waits for incoming commands from a spesific client and pass it to the command parser.
+     */
     public void run() {
         boolean run = true;
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(this.clientConnection.getInputStream()));
             while (!clientConnection.isClosed()) {
                 String response = in.readLine();
-                JancProtocolHandler.getInstance().ParseFromString(response, this);
+                JancProtocolHandler.getInstance().parseFromString(response, this);
             }
 
         } catch (IOException e) {
