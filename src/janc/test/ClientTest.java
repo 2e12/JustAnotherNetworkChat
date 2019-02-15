@@ -20,10 +20,11 @@ public class ClientTest {
             Scanner scanner = new Scanner(System.in);
             ClientReciver listener = new ClientReciver(socket);
             listener.start(); //Runs in its own thread ;)
+            out.println("req;null;1550214384000");
 
             while (!socket.isClosed()) {
                 String input = scanner.nextLine();
-                out.println("msg;null;Gibb1;null;" + System.currentTimeMillis() + ";" + input + ";");
+                out.println("msg;null;Gibb;null;" + System.currentTimeMillis() + ";" + input + ";");
             }
 
 

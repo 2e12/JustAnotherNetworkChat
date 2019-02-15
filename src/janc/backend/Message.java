@@ -3,12 +3,11 @@ package janc.backend;
 public class Message {
     private int id;
     private int userid;
+    private String username;
     private String timestamp;
     private String text;
 
-    public int getId() {
-        return id;
-    }
+
 
     /**
      * Set the Message id
@@ -66,5 +65,32 @@ public class Message {
      */
     public void setText(String text) {
         this.text = text;
+    }
+
+    /**
+     * Sets new username.
+     *
+     * @param username New value of username.
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * Gets username.
+     *
+     * @return Value of username.
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Gets id.
+     *
+     * @return Value of id.
+     */
+    public int getId() {
+        return id;
     }
 }

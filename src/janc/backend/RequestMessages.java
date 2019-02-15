@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RequestMessages extends JancCommand {
 
-    String timestamp = null;
+    private String timestamp;
 
     public RequestMessages(String[] parts, ServerClientConnection connection) throws MalformedCommandException {
         super(parts, connection);
@@ -21,8 +21,7 @@ public class RequestMessages extends JancCommand {
             List<Message> messages = messageDB.getAllMessagesSince(this.timestamp);
             var out = new PrintWriter(this.getConnection().getClientConnection().getOutputStream(), true);
             for (Message message : messages) {
-                out.println(message.getText());
-
+                out.println("dsb;" + message.getUsername() + ";" + message.getTimestamp() + ";" + message.getText() + ";");
             }
         } catch (SQLException | IOException e) {
 

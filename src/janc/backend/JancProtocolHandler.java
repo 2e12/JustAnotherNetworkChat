@@ -34,6 +34,7 @@ public class JancProtocolHandler {
         JancProtocolHandler.registerCommand("lgn", RequestSessionKey.class);
         JancProtocolHandler.registerCommand("msg", SendMessage.class);
         JancProtocolHandler.registerCommand("bye", CloseConnection.class);
+        JancProtocolHandler.registerCommand("req", RequestMessages.class);
     }
 
     public void broadcastToAllClients(String command){
