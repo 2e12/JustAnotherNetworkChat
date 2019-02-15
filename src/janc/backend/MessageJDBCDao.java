@@ -37,7 +37,9 @@ public class MessageJDBCDao implements MessageDao {
     public List<Message> getAllMessagesSince(String timestamp) {
         List<Message> messages = new ArrayList<Message>();
         try {
-            String sql = "SELECT * FROM messages WHERE timestamp > ?";
+            String sql = "SELECT message.*, user.username FROM message " +
+                    "JOIN user ON user.id = message.userid " +
+                    "WHERE timestamp > ?";
             PreparedStatement ps = this.connection.prepareStatement(sql);
             ps.setTimestamp(1, new Timestamp(Long.parseLong(timestamp)));
             ResultSet result = ps.executeQuery();
@@ -47,8 +49,11 @@ public class MessageJDBCDao implements MessageDao {
                 message = new Message();
                 message.setId(result.getInt(1));
                 message.setUserid(result.getInt(2));
-                message.setTimestamp(result.getTimestamp(3).toString());
+
+                String messageTimestamp = Long.toString(result.getTimestamp(3).getTime()); //Converts the date into the milliseconds timestamp format
+                message.setTimestamp(messageTimestamp);
                 message.setText(result.getString(4));
+                message.setUsername(result.getString(5));
 
                 messages.add(message);
             }
