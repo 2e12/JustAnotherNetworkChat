@@ -25,7 +25,6 @@ public class ServerConnection {
             socket.setKeepAlive(true);
             out = new PrintWriter(socket.getOutputStream(), true);
             out.println(MessageFormat.format("lgn;{0};{1}", uName, pWord));
-
             listener = new Listener(socket);
             listener.start();
         }catch(IOException e){
@@ -43,6 +42,11 @@ public class ServerConnection {
         String input = msg;
         out.println("msg;null;" + uName + ";null;" + System.currentTimeMillis() + ";" + input + ";");
     }
+
+    public static void sendByeToServer() {
+        out.println("bye;");
+    }
+
 
     /**
      * Gets uName.
