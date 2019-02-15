@@ -5,6 +5,10 @@ import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Client extends Application{
     private static Stage stage;
     private static View view;
@@ -31,6 +35,23 @@ public class Client extends Application{
         icon = new Image("file:resources/icons/janc_icon.png");
         stage.getIcons().addAll(icon);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(event ->
+        {
+            File file = new File("resources/chats/newestChat.txt");
+            FileWriter fr = null;
+            try {
+                fr = new FileWriter(file);
+                fr.write(view.getChat().getMessages());
+            } catch (IOException io) {
+                System.out.println("Writing failed!");
+            } finally {
+                try {
+                    fr.close();
+                } catch (IOException ioe) {
+                    System.out.println("Writing failed!");
+                }
+            }
+        });
     }
 
     /**
@@ -45,6 +66,7 @@ public class Client extends Application{
             view.getChat().setConnection(view.getHome().getTxtfdAdress().getText(), view.getHome().getTxtfdUsername().getText(), view.getHome().getTxtfdPassword().getText());
         } else {
             view.getChat().sendBye();
+            System.out.println("Socket connection closed!");
             model = new Model();
             controller = new Controller(model);
             view = new View(controller, model);

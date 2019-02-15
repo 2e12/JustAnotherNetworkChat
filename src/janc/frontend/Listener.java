@@ -11,16 +11,10 @@ public class Listener extends Thread{
     private Socket socket;
     private Model model;
 
-
-    public Socket getSocket() {
-        return socket;
-    }
-
     /**
      * The creator of this class gives the instance variable the value of the parameter socket.
      * @param socket the server socket.
      */
-
     public Listener(Socket socket) {
         this.socket = socket;
         this.model = model;
@@ -39,10 +33,20 @@ public class Listener extends Thread{
                     Model.setOutput(response);
                 }
             }
+            Platform.exit();
         } catch (IOException e) {
             Platform.runLater(() ->
                     Client.switchToScene("home")
                     );
         }
+    }
+
+    /**
+     * Gets socket.
+     *
+     * @return Value of socket.
+     */
+    public Socket getSocket() {
+        return socket;
     }
 }

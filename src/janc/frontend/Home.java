@@ -118,6 +118,10 @@ public class Home{
         sceneHome = new Scene(bpPane, 400, 600);
     }
 
+    /**
+     * If a theme gets selected, this method change the style of various elements to fit with the new background color.
+     * @param theme this param says, which theme is the new theme.
+     */
     public void changeStyle(String theme) {
         if (theme.equals("bright")) {
             rbutBright.setSelected(true);
