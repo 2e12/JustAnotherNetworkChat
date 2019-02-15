@@ -29,7 +29,7 @@ public class Controller {
         if (adress.isEmpty() || username.isEmpty() || passwd.isEmpty() || !validIp) {
             model.setWarning(true);
         } else {
-            model.setChangeSite(true);
+            model.setChangeSite("chat");
         }
     }
 

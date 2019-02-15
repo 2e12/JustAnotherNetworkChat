@@ -1,6 +1,7 @@
 package janc.frontend;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -9,6 +10,7 @@ public class Client extends Application{
     private static View view;
     private static Model model;
     private static Controller controller;
+    private Image icon;
 
     /**
      * This constructor is a type of a manager for every class which the client uses.
@@ -26,18 +28,28 @@ public class Client extends Application{
         primaryStage.setScene(view.getHome().getSceneHome());
         primaryStage.setX(Screen.getPrimary().getBounds().getMaxX() / 100 * 36);
         primaryStage.setY(Screen.getPrimary().getBounds().getMaxY() / 100 * 2);
+        icon = new Image("file:resources/icons/janc_icon.png");
+        stage.getIcons().addAll(icon);
         primaryStage.show();
     }
 
     /**
      * This method changes the scene in the stage and sets a new connection to a specific server.
      */
-    public static void switchToScene() {
-        stage.setScene(view.getChat().getSceneChat());
-        view.getChat().setUserName(view.getHome().getTxtfdUsername().getText());
-        view.getChat().setConnectedIP(view.getHome().getTxtfdAdress().getText());
-        view.getChat().setTxtConnectionText("chatting @ " + view.getHome().getTxtfdAdress().getText());
-        view.getChat().setConnection(view.getHome().getTxtfdAdress().getText(), view.getHome().getTxtfdUsername().getText(), view.getHome().getTxtfdPassword().getText());
+    public static void switchToScene(String scene) {
+        if (scene.equals("chat")) {
+            stage.setScene(view.getChat().getSceneChat());
+            view.getChat().setUserName(view.getHome().getTxtfdUsername().getText());
+            view.getChat().setConnectedIP(view.getHome().getTxtfdAdress().getText());
+            view.getChat().setTxtConnectionText("chatting @ " + view.getHome().getTxtfdAdress().getText());
+            view.getChat().setConnection(view.getHome().getTxtfdAdress().getText(), view.getHome().getTxtfdUsername().getText(), view.getHome().getTxtfdPassword().getText());
+        } else {
+            view.getChat().sendBye();
+            model = new Model();
+            controller = new Controller(model);
+            view = new View(controller, model);
+            stage.setScene(view.getHome().getSceneHome());
+        }
     }
 
     /**

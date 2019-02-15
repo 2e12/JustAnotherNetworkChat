@@ -1,5 +1,7 @@
 package janc.frontend;
 
+import javafx.application.Platform;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,20 +9,21 @@ import java.net.Socket;
 
 public class Listener extends Thread{
     private Socket socket;
+    private Model model;
 
 
     public Socket getSocket() {
         return socket;
     }
 
-
     /**
      * The creator of this class gives the instance variable the value of the parameter socket.
-     * @param socket
+     * @param socket the server socket.
      */
 
     public Listener(Socket socket) {
         this.socket = socket;
+        this.model = model;
     }
 
     /**
@@ -37,7 +40,9 @@ public class Listener extends Thread{
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Platform.runLater(() ->
+                    Client.switchToScene("home")
+                    );
         }
     }
 }

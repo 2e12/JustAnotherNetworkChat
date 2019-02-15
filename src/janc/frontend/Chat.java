@@ -5,6 +5,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -18,6 +20,8 @@ public class Chat{
     private Scene sceneChat;
     private BorderPane bpPane;
     private Text txtHeader;
+    private Image imgBack;
+    private Button butBackHome;
     private Text txtConnection;
     private VBox vbxHeader;
     private ScrollPane spPane;
@@ -32,6 +36,8 @@ public class Chat{
     private VBox myVBox;
     private HBox myHBox;
     private Button butSend;
+    private ComboBox cbxEmojis;
+    private HBox hbxSendingItems;
     private String connectedIP;
     private ServerConnection serverConnection;
     private final ToggleGroup tgThemes;
@@ -49,6 +55,9 @@ public class Chat{
     public Chat(){
         this.controller = controller;
         //Create the header content
+        imgBack = new Image("file:resources/icons/arrow32.png");
+        butBackHome = new Button();
+        butBackHome.setGraphic(new ImageView(imgBack));
         txtHeader = new Text("chatroom:");
         txtHeader.setFont(new Font("Arial", 35));
         txtHeader.setFill(Color.web("#4f6367"));
@@ -56,7 +65,8 @@ public class Chat{
         txtConnection.setFont(new Font("Arial", 16));
         txtConnection.setFill(Color.web("#4f6367"));
         vbxHeader = new VBox();
-        vbxHeader.getChildren().addAll(txtHeader, txtConnection);
+        vbxHeader.getChildren().addAll(butBackHome, txtHeader, txtConnection);
+        vbxHeader.setMargin(butBackHome, new Insets(5, 0, 15, 0));
 
         //Create the chat
         vbxMessages = new VBox();
@@ -70,10 +80,19 @@ public class Chat{
         spPane.setContent(vbxMessages);
         spPane.vvalueProperty().bind(vbxMessages.heightProperty());
 
-        //Create the content of the input field
+        //Create the content of the input field and the emoji combobox
         txtfdActualMessage = new TextField();
         txtfdActualMessage.setPromptText("message");
         txtfdActualMessage.setPrefWidth(550);
+        cbxEmojis = new ComboBox();
+        cbxEmojis.setEditable(false);
+        cbxEmojis.setPrefWidth(100);
+        cbxEmojis.setPromptText("Emojis");
+        cbxEmojis.setPrefHeight(txtfdActualMessage.getHeight());
+        cbxEmojis.getItems().addAll(" (ㆆ _ ㆆ) ", " •`_´• ", " (‿|‿) ", " •͡˘㇁•͡˘ ", " (-_-) ", " ✔ ", " (｡◕‿‿◕｡) ", " (︶︹︶) ", " <(^_^)> ");
+        hbxSendingItems = new HBox();
+        hbxSendingItems.getChildren().addAll(txtfdActualMessage, cbxEmojis);
+        hbxSendingItems.setPrefWidth(650);
 
         //Create the send-button and the HBox
         butSend = new Button("send");
@@ -85,9 +104,9 @@ public class Chat{
 
         //Add the side content to a vbox
         vbxContent = new VBox();
-        vbxContent.getChildren().addAll(spPane, txtfdActualMessage, hbxSend);
+        vbxContent.getChildren().addAll(spPane, hbxSendingItems, hbxSend);
         vbxContent.setMargin(spPane, new Insets(0, 70, 0, 70));
-        vbxContent.setMargin(txtfdActualMessage, new Insets(0, 70, 0, 70));
+        vbxContent.setMargin(hbxSendingItems, new Insets(0, 70, 0, 70));
         vbxContent.setMargin(hbxSend, new Insets(0, 70, 0, 0));
         vbxContent.setSpacing(40);
 
@@ -127,6 +146,10 @@ public class Chat{
     public void sendMessage(String message, String uName) {
         serverConnection.sendMessageToServer(message, uName);
         txtfdActualMessage.setText("");
+    }
+
+    public void sendBye() {
+        serverConnection.sendByeToServer();
     }
 
     /**
@@ -305,5 +328,23 @@ public class Chat{
      */
     public RadioButton getRbutDark() {
         return rbutDark;
+    }
+
+    /**
+     * Gets cbxEmojis.
+     *
+     * @return Value of cbxEmojis.
+     */
+    public ComboBox getCbxEmojis() {
+        return cbxEmojis;
+    }
+
+    /**
+     * Gets butBackHome.
+     *
+     * @return Value of butBackHome.
+     */
+    public Button getButBackHome() {
+        return butBackHome;
     }
 }

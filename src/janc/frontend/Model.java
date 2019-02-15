@@ -5,11 +5,20 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Model {
-    private SimpleBooleanProperty changeSite = new SimpleBooleanProperty(false);
+    private SimpleStringProperty changeSite = new SimpleStringProperty("");
     private SimpleStringProperty writtenMessage = new SimpleStringProperty("");
     private static SimpleStringProperty output = new SimpleStringProperty("");
     private SimpleBooleanProperty warning = new SimpleBooleanProperty(false);
     private SimpleStringProperty colorTheme = new SimpleStringProperty("bright");
+    private SimpleBooleanProperty connectionLost = new SimpleBooleanProperty(false);
+
+    /**
+     * Used for adding Listeners
+     * @return the value of connectionLost
+     */
+    public SimpleBooleanProperty connectionLostProperty() {
+        return connectionLost;
+    }
 
     /**
      * Used for adding Listeners
@@ -23,7 +32,7 @@ public class Model {
      * Used for adding Listeners
      * @return the value of changeSite
      */
-    public SimpleBooleanProperty changeSiteProperty() {
+    public SimpleStringProperty changeSiteProperty() {
         return changeSite;
     }
 
@@ -56,7 +65,7 @@ public class Model {
      *
      * @return Value of changeSite.
      */
-    public SimpleBooleanProperty getChangeSite() {
+    public SimpleStringProperty getChangeSite() {
         return changeSite;
     }
 
@@ -119,7 +128,7 @@ public class Model {
      *
      * @param changeSite New value of changeSite.
      */
-    public void setChangeSite(Boolean changeSite) {
+    public void setChangeSite(String changeSite) {
         this.changeSite.set(changeSite);
     }
 
@@ -139,5 +148,23 @@ public class Model {
      */
     public SimpleStringProperty getColorTheme() {
         return colorTheme;
+    }
+
+    /**
+     * Sets new connectionLost.
+     *
+     * @param connectionLost New value of connectionLost.
+     */
+    public void setConnectionLost(Boolean connectionLost) {
+        this.connectionLost.set(connectionLost);
+    }
+
+    /**
+     * Gets connectionLost.
+     *
+     * @return Value of connectionLost.
+     */
+    public SimpleBooleanProperty getConnectionLost() {
+        return connectionLost;
     }
 }

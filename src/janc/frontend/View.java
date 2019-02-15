@@ -52,6 +52,15 @@ public class View{
         home.getRbutDark().setOnAction(actionEvent -> controller.setColorTheme("dark"));
         chat.getRbutBright().setOnAction(actionEvent -> controller.setColorTheme("bright"));
         chat.getRbutDark().setOnAction(actionEvent -> controller.setColorTheme("dark"));
+        chat.getButBackHome().setOnAction(actionEvent -> Client.switchToScene("home"));
+        chat.getSceneChat().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.BACK_SPACE) {
+                    Client.switchToScene("home");
+                }
+            }
+        });
     }
 
     /**
@@ -59,7 +68,7 @@ public class View{
      */
     private void listenToModelChanges() {
         model.changeSiteProperty().addListener((observable, oldValue, newValue) ->
-                Client.switchToScene());
+                Client.switchToScene(newValue));
         model.writtenMessageProperty().addListener((observable, oldValue, newValue) ->
                 chat.sendMessage(newValue, chat.getUserName()));
         model.outputProperty().addListener((observable, oldValue, newValue) ->
@@ -68,6 +77,8 @@ public class View{
                 home.getTxtWarning().setText("incorrect informations!"));
         model.colorThemeProperty().addListener((observable, oldValue, newValue) ->
                 changeThemes(newValue));
+        chat.getCbxEmojis().valueProperty().addListener((observable, oldValue, newValue) ->
+                chat.getTxtfdActualMessage().setText(chat.getTxtfdActualMessage().getText() + chat.getCbxEmojis().getValue()));
     }
 
     private void changeThemes(String theme) {
@@ -111,5 +122,14 @@ public class View{
      */
     public void setHome(Home home) {
         this.home = home;
+    }
+
+    /**
+     * Sets new chat.
+     *
+     * @param chat New value of chat.
+     */
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 }
