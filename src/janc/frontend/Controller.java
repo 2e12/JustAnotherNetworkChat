@@ -47,6 +47,10 @@ public class Controller {
         }
     }
 
+    /**
+     * This method sets a SimpleStringProperty in the Model class equal to a user defined theme.
+     * @param themeName The theme which the user has defined.
+     */
     public void setColorTheme(String themeName) {
         model.setColorTheme(themeName);
     }

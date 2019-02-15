@@ -19,6 +19,7 @@ public class Chat{
     private Controller controller;
     private Scene sceneChat;
     private BorderPane bpPane;
+    private HBox hbxHeader;
     private Text txtHeader;
     private Image imgBack;
     private Button butBackHome;
@@ -48,6 +49,7 @@ public class Chat{
     private HBox hbxBright;
     private HBox hbxDark;
     private HBox hbxThemes;
+    private String messages;
 
     /**
      * This method is the constructor of the Chat class. Here the whole GUI for the chat tab gets built.
@@ -58,15 +60,19 @@ public class Chat{
         imgBack = new Image("file:resources/icons/arrow32.png");
         butBackHome = new Button();
         butBackHome.setGraphic(new ImageView(imgBack));
+        butBackHome.setPrefHeight(32);
+        butBackHome.setPrefWidth(32);
         txtHeader = new Text("chatroom:");
         txtHeader.setFont(new Font("Arial", 35));
         txtHeader.setFill(Color.web("#4f6367"));
+        hbxHeader = new HBox();
+        hbxHeader.getChildren().addAll(txtHeader, butBackHome);
         txtConnection = new Text("chatting @ " + connectedIP);
         txtConnection.setFont(new Font("Arial", 16));
         txtConnection.setFill(Color.web("#4f6367"));
         vbxHeader = new VBox();
-        vbxHeader.getChildren().addAll(butBackHome, txtHeader, txtConnection);
-        vbxHeader.setMargin(butBackHome, new Insets(5, 0, 15, 0));
+        vbxHeader.getChildren().addAll(hbxHeader, txtConnection);
+        hbxHeader.setSpacing(458);
 
         //Create the chat
         vbxMessages = new VBox();
@@ -148,6 +154,9 @@ public class Chat{
         txtfdActualMessage.setText("");
     }
 
+    /**
+     * This method triggers an other method in the ServerConnection class, which sends a 'bye'-command to the server-socket.
+     */
     public void sendBye() {
         serverConnection.sendByeToServer();
     }
@@ -174,6 +183,7 @@ public class Chat{
                 Timestamp ts = new Timestamp(Long.parseLong(parts[2]));
                 Date date = new Date(ts.getTime());
                 String msg = parts[3];
+                messages += new SimpleDateFormat("HH:mm").format(date) + " -> " + owner + " : " + msg + "\n";
                 myText = new Text(msg);
                 myTime = new Text(new SimpleDateFormat("HH:mm").format(date));
                 myVBox = new VBox();
@@ -189,10 +199,6 @@ public class Chat{
                     myHBox.getChildren().add(myTime);
                     myVBox.getChildren().add(myText);
                     myVBox.getChildren().add(myHBox);
-                    myVBox.setPadding(new Insets(10, 10, 10, 10));
-                    vbxMessages.getChildren().add(myVBox);
-                    vbxMessages.setPadding(new Insets(20, 0, 20, 15));
-                    vbxMessages.setSpacing(40);
                 } else {
                     myOwner = new Text(owner + ":");
                     myOwner.setFont(Font.font("Arial", 16));
@@ -207,42 +213,50 @@ public class Chat{
                     myVBox.getChildren().add(myOwner);
                     myVBox.getChildren().add(myText);
                     myVBox.getChildren().add(myHBox);
-                    myVBox.setPadding(new Insets(10, 10, 10, 10));
-                    vbxMessages.getChildren().add(myVBox);
-                    vbxMessages.setPadding(new Insets(20, 0, 20, 15));
-                    vbxMessages.setSpacing(40);
                 }
+                myVBox.setPadding(new Insets(10, 10, 10, 10));
+                vbxMessages.getChildren().add(myVBox);
+                vbxMessages.setPadding(new Insets(20, 0, 20, 15));
+                vbxMessages.setSpacing(40);
             }else {
                 System.out.println("Logging in...");
             }
         });
     }
 
+    /**
+     * This method does nearly the same as the similar method in the Home class.
+     * It changes the style of various nodes, that they fit with the new background color, which is defined by the selected theme.
+     * @param theme
+     */
     public void changeStyle(String theme) {
+        String hexcolMainBright = "#4F6367";
+        String hexcolSecondBright = "#000000";
+        String hexcolMainDark = "#FFFFFF";
         if (theme.equals("bright")) {
             rbutBright.setSelected(true);
             rbutDark.setSelected(false);
-            txtHeader.setFill(Color.web("#4F6367"));
-            txtConnection.setFill(Color.web("#4F6367"));
+            txtHeader.setFill(Color.web(hexcolMainBright));
+            txtConnection.setFill(Color.web(hexcolMainBright));
             bpPane.setStyle("-fx-background-color: #FFFFFF");
-            lblBright.setTextFill(Color.web("#000000"));
-            lblDark.setTextFill(Color.web("#000000"));
+            lblBright.setTextFill(Color.web(hexcolSecondBright));
+            lblDark.setTextFill(Color.web(hexcolSecondBright));
             spPane.setStyle("-fx-background: #FFFFFF");
         } else {
+
             rbutBright.setSelected(true);
             rbutDark.setSelected(false);
-            txtHeader.setFill(Color.web("#FFFFFF"));
-            txtConnection.setFill(Color.web("#FFFFFF"));
+            txtConnection.setFill(Color.web(hexcolMainDark));
             bpPane.setStyle("-fx-background-color: #363636");
-            lblBright.setTextFill(Color.web("#FFFFFF"));
-            lblDark.setTextFill(Color.web("#FFFFFF"));
+            lblBright.setTextFill(Color.web(hexcolMainDark));
+            lblDark.setTextFill(Color.web(hexcolMainDark));
+            txtHeader.setFill(Color.web(hexcolMainDark));
             spPane.setStyle("-fx-background: #363636");
         }
     }
 
     /**
      * Sets new txtConnection.
-     *
      * @param txt New content for the txtConnection Node.
      */
     public void setTxtConnectionText(String txt) {
@@ -346,5 +360,14 @@ public class Chat{
      */
     public Button getButBackHome() {
         return butBackHome;
+    }
+
+    /**
+     * Gets messages.
+     *
+     * @return Value of messages.
+     */
+    public String getMessages() {
+        return messages;
     }
 }
