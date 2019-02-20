@@ -56,6 +56,7 @@ public class Chat{
      */
     public Chat(){
         this.controller = controller;
+        messages = " ";
         //Create the header content
         imgBack = new Image("file:resources/icons/arrow32.png");
         butBackHome = new Button();

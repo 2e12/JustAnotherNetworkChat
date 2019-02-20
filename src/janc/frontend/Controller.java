@@ -1,5 +1,9 @@
 package janc.frontend;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.regex.Pattern;
 
 public class Controller {
@@ -22,11 +26,32 @@ public class Controller {
      */
     public void handleButtonClickSideSwitch(String adress, String username, String passwd) {
         Boolean validIp = false;
+        Boolean reachableIp = false;
         Pattern pattern = Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
         if (pattern.matcher(adress).matches()) {
             validIp = true;
         }
-        if (adress.isEmpty() || username.isEmpty() || passwd.isEmpty() || !validIp) {
+        Socket s = null;
+        try {
+            try {
+                s = new Socket(adress, 9980);
+                s.setSoTimeout(2 * 100);
+                reachableIp = true;
+            } catch (UnknownHostException ue) {
+                System.out.println("Error!");
+            } finally {
+                if (s != null) {
+                    try {
+                        s.close();
+                    } catch (Exception e) {
+                        System.out.println("Error!");
+                    }
+                }
+            }
+        } catch (IOException ie) {
+            System.out.println("Error!");
+        }
+        if (adress.isEmpty() || username.isEmpty() || passwd.isEmpty() || !validIp || !reachableIp) {
             model.setWarning(true);
         } else {
             model.setChangeSite("chat");
