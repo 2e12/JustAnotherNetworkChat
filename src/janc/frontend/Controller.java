@@ -3,7 +3,7 @@ package janc.frontend;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.SocketAddress;
 import java.util.regex.Pattern;
 
 public class Controller {
@@ -31,26 +31,16 @@ public class Controller {
         if (pattern.matcher(adress).matches()) {
             validIp = true;
         }
-        Socket s = null;
         try {
-            try {
-                s = new Socket(adress, 9980);
-                s.setSoTimeout(2 * 100);
+                SocketAddress socketAddress = new InetSocketAddress(adress, 9980);
+                Socket socket = new Socket();
+                int timeout = 2000;
+                socket.connect(socketAddress, timeout);
+                socket.close();
                 reachableIp = true;
-            } catch (UnknownHostException ue) {
-                System.out.println("Error!");
-            } finally {
-                if (s != null) {
-                    try {
-                        s.close();
-                    } catch (Exception e) {
-                        System.out.println("Error!");
-                    }
-                }
+            } catch (IOException ioe) {
+                System.out.println("Socket unreachable!");
             }
-        } catch (IOException ie) {
-            System.out.println("Error!");
-        }
         if (adress.isEmpty() || username.isEmpty() || passwd.isEmpty() || !validIp || !reachableIp) {
             model.setWarning(true);
         } else {
