@@ -1,7 +1,7 @@
 package janc.backend;
 
 enum LoginState { //Thus enum is required for checking later the login state
-    correct,
+    loggedIn,
     worngPassword,
     noUser
 }
