@@ -1,6 +1,7 @@
 package janc.frontend;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -53,6 +54,8 @@ public class Client extends Application{
                     System.out.println("Writing failed!");
                 }
             }
+            Platform.exit();
+            System.exit(0);
         });
     }
 
