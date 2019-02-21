@@ -179,48 +179,52 @@ public class Chat{
     public void displayMessage(String message) {
         String[] parts = message.split(";");
         Platform.runLater(() -> {
-            if (parts[0].equals("dsb")) {
-                String owner = parts[1];
-                Timestamp ts = new Timestamp(Long.parseLong(parts[2]));
-                Date date = new Date(ts.getTime());
-                String msg = parts[3];
-                messages += new SimpleDateFormat("HH:mm").format(date) + " -> " + owner + " : " + msg + "\n";
-                myText = new Text(msg);
-                myTime = new Text(new SimpleDateFormat("HH:mm").format(date));
-                myVBox = new VBox();
-                myHBox = new HBox();
-                if (owner.equals(serverConnection.getUName())) {
-                    myText.setFill(Color.web("#FFFFFF"));
-                    myText.setFont(Font.font("Arial", 20));
-                    myText.setWrappingWidth(500);
-                    myTime.setFont(Font.font("Arial", 12));
-                    myTime.setFill(Color.web("#FFFFFF"));
-                    myVBox.setStyle("-fx-background-color: #FE5F55; -fx-background-radius: 5px;");
-                    myHBox.setAlignment(Pos.CENTER_RIGHT);
-                    myHBox.getChildren().add(myTime);
-                    myVBox.getChildren().add(myText);
-                    myVBox.getChildren().add(myHBox);
-                } else {
-                    myOwner = new Text(owner + ":");
-                    myOwner.setFont(Font.font("Arial", 16));
-                    myOwner.setFill(Color.web("#FFFFFF"));
-                    myText.setFill(Color.web("#FFFFFF"));
-                    myTime.setFill(Color.web("#FFFFFF"));
-                    myText.setFont(Font.font("Arial", 20));
-                    myText.setWrappingWidth(500);
-                    myVBox.setStyle("-fx-background-color: #7A9E9F; -fx-background-radius: 5px;");
-                    myHBox.setAlignment(Pos.CENTER_RIGHT);
-                    myHBox.getChildren().add(myTime);
-                    myVBox.getChildren().add(myOwner);
-                    myVBox.getChildren().add(myText);
-                    myVBox.getChildren().add(myHBox);
+            try {
+                if (parts[0].equals("dsb")) {
+                    String owner = parts[1];
+                    Timestamp ts = new Timestamp(Long.parseLong(parts[2]));
+                    Date date = new Date(ts.getTime());
+                    String msg = parts[3];
+                    messages += new SimpleDateFormat("HH:mm").format(date) + " -> " + owner + " : " + msg + "    ";
+                    myText = new Text(msg);
+                    myTime = new Text(new SimpleDateFormat("HH:mm").format(date));
+                    myVBox = new VBox();
+                    myHBox = new HBox();
+                    if (owner.equals(serverConnection.getUName())) {
+                        myText.setFill(Color.web("#FFFFFF"));
+                        myText.setFont(Font.font("Arial", 20));
+                        myText.setWrappingWidth(500);
+                        myTime.setFont(Font.font("Arial", 12));
+                        myTime.setFill(Color.web("#FFFFFF"));
+                        myVBox.setStyle("-fx-background-color: #FE5F55; -fx-background-radius: 5px;");
+                        myHBox.setAlignment(Pos.CENTER_RIGHT);
+                        myHBox.getChildren().add(myTime);
+                        myVBox.getChildren().add(myText);
+                        myVBox.getChildren().add(myHBox);
+                    } else {
+                        myOwner = new Text(owner + ":");
+                        myOwner.setFont(Font.font("Arial", 16));
+                        myOwner.setFill(Color.web("#FFFFFF"));
+                        myText.setFill(Color.web("#FFFFFF"));
+                        myTime.setFill(Color.web("#FFFFFF"));
+                        myText.setFont(Font.font("Arial", 20));
+                        myText.setWrappingWidth(500);
+                        myVBox.setStyle("-fx-background-color: #7A9E9F; -fx-background-radius: 5px;");
+                        myHBox.setAlignment(Pos.CENTER_RIGHT);
+                        myHBox.getChildren().add(myTime);
+                        myVBox.getChildren().add(myOwner);
+                        myVBox.getChildren().add(myText);
+                        myVBox.getChildren().add(myHBox);
+                    }
+                    myVBox.setPadding(new Insets(10, 10, 10, 10));
+                    vbxMessages.getChildren().add(myVBox);
+                    vbxMessages.setPadding(new Insets(20, 0, 20, 15));
+                    vbxMessages.setSpacing(40);
+                }else {
+                    System.out.println("Logging in...");
                 }
-                myVBox.setPadding(new Insets(10, 10, 10, 10));
-                vbxMessages.getChildren().add(myVBox);
-                vbxMessages.setPadding(new Insets(20, 0, 20, 15));
-                vbxMessages.setSpacing(40);
-            }else {
-                System.out.println("Logging in...");
+            } catch (NullPointerException ne) {
+
             }
         });
     }
