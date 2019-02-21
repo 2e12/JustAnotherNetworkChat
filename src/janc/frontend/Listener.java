@@ -9,7 +9,6 @@ import java.net.Socket;
 
 public class Listener extends Thread{
     private Socket socket;
-    private Model model;
 
     /**
      * The creator of this class gives the instance variable the value of the parameter socket.
@@ -17,7 +16,6 @@ public class Listener extends Thread{
      */
     public Listener(Socket socket) {
         this.socket = socket;
-        this.model = model;
     }
 
     /**
@@ -29,8 +27,12 @@ public class Listener extends Thread{
             BufferedReader in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             while (!this.socket.isClosed()) {
                 String response = in.readLine();
-                if (response != null) {
+                String[] parts = response.split(";");
+                if (response != null && parts[0].equals("msg")) {
                     Model.setOutput(response);
+                }
+                if (parts[0].equals("err")) {
+                    Model.setLoginFailed(true);
                 }
             }
             Platform.exit();
