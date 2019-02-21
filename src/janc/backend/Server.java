@@ -15,17 +15,20 @@ public class Server
      * @param args Arguments. Not relevant. Will be ignored anyway.
      */
     public static void main(String[] args) {
-        Server server = new Server();
+        Server server = new Server(false);
     }
 
     /**
      * Searches for clients. When one client is found, a socket connection will be created.
      */
-    public Server(){
+    public Server(Boolean testserver){
         try {
             ServerSocket listener = new ServerSocket(9980);
             System.out.println("Server is running on port " + listener.getLocalPort());
             while (true) {
+                if (testserver == true) {
+                    System.exit(0);
+                }
                 //Waiting for client
                 Socket socket = listener.accept();
                 socket.setKeepAlive(true);
@@ -39,6 +42,5 @@ public class Server
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

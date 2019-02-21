@@ -86,4 +86,13 @@ public class Client extends Application{
     public static void main(String[] args) {
         launch(args);
     }
+
+    /**
+     * Gets stage.
+     *
+     * @return Value of stage.
+     */
+    public static Stage getStage() {
+        return stage;
+    }
 }

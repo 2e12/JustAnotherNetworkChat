@@ -55,7 +55,6 @@ public class Chat{
      * This method is the constructor of the Chat class. Here the whole GUI for the chat tab gets built.
      */
     public Chat(){
-        this.controller = controller;
         messages = " ";
         //Create the header content
         imgBack = new Image("file:resources/icons/arrow32.png");

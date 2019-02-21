@@ -130,4 +130,13 @@ public class View{
     public void setChat(Chat chat) {
         this.chat = chat;
     }
+
+    /**
+     * Gets controller.
+     *
+     * @return Value of controller.
+     */
+    public Controller getController() {
+        return controller;
+    }
 }
