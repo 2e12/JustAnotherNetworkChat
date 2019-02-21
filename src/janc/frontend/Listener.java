@@ -24,22 +24,28 @@ public class Listener extends Thread{
     @Override
     public void run() {
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-            while (!this.socket.isClosed()) {
-                String response = in.readLine();
-                String[] parts = response.split(";");
-                if (response != null && parts[0].equals("msg")) {
-                    Model.setOutput(response);
+            try {
+                BufferedReader in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+                while (!this.socket.isClosed()) {
+                    String response = in.readLine();
+                    String[] parts = response.split(";");
+                    if (response != null && parts[0].equals("dsb")) {
+                        Model.setOutput(response);
+                    }
+                    if (response != null && parts[0].equals("err")) {
+                        Platform.runLater(() ->
+                                Model.setLoginFailed(true)
+                        );
+                    }
                 }
-                if (parts[0].equals("err")) {
-                    Model.setLoginFailed(true);
-                }
+                Platform.exit();
+            } catch (IOException e) {
+                Platform.runLater(() ->
+                        Client.switchToScene("home")
+                );
             }
-            Platform.exit();
-        } catch (IOException e) {
-            Platform.runLater(() ->
-                    Client.switchToScene("home")
-                    );
+        } catch (NullPointerException ne) {
+            System.out.println("test-message received!");
         }
     }
 

@@ -75,7 +75,8 @@ public class View{
         chat.getCbxEmojis().valueProperty().addListener((observable, oldValue, newValue) ->
                 chat.getTxtfdActualMessage().setText(chat.getTxtfdActualMessage().getText() + chat.getCbxEmojis().getValue()));
         model.loginFailedProperty().addListener((observable, oldValue, newValue) ->
-                Client.switchToScene("home"));
+        {Client.switchToScene("home");
+        Model.setLoginFailed(false);});
     }
 
     private void changeThemes(String theme) {
