@@ -12,7 +12,7 @@ public abstract class JancCommand {
      * The constructor of the method. Put everything where it should be.
      *
      * @param parts      The command parts. They will forwarded to the JnacCommand super constructor. The constructor pass it further to the parseFromString method from actual instance.
-     * @param connection The command parts. They will forwarded to the JnacCommand super constructor. The constructor pass it further to the parseFromString method from actual instance.
+     * @param connection The connection to the client.
      * @throws MalformedCommandException
      */
     public JancCommand(String[] parts, ServerClientConnection connection) throws MalformedCommandException {

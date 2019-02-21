@@ -15,7 +15,7 @@ public class ClientTest {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
 
-            out.println("lgn;Gibb;sml12345");
+            out.println("lgn;Gibb;sml123456");
             //out.flush();
             Scanner scanner = new Scanner(System.in);
             ClientReciver listener = new ClientReciver(socket);
