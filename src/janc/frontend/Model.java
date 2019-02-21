@@ -11,6 +11,15 @@ public class Model {
     private SimpleBooleanProperty warning = new SimpleBooleanProperty(false);
     private SimpleStringProperty colorTheme = new SimpleStringProperty("bright");
     private SimpleBooleanProperty connectionLost = new SimpleBooleanProperty(false);
+    private static SimpleBooleanProperty loginFailed = new SimpleBooleanProperty(false);
+
+    /**
+     * Used for adding Listeners
+     * @return the value of loginFailed
+     */
+    public static SimpleBooleanProperty loginFailedProperty() {
+        return loginFailed;
+    }
 
     /**
      * Used for adding Listeners
@@ -166,5 +175,23 @@ public class Model {
      */
     public SimpleBooleanProperty getConnectionLost() {
         return connectionLost;
+    }
+
+    /**
+     * Sets new loginFailed.
+     *
+     * @param failed New value of loginFailed.
+     */
+    public static void setLoginFailed(Boolean failed) {
+        loginFailed.set(failed);
+    }
+
+    /**
+     * Gets loginFailed.
+     *
+     * @return Value of loginFailed.
+     */
+    public static SimpleBooleanProperty getLoginFailed() {
+        return loginFailed;
     }
 }
