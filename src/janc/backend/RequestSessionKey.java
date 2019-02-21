@@ -50,6 +50,8 @@ public class RequestSessionKey extends JancCommand{
                     }
 
                 } else {
+                    var out = new PrintWriter(this.getConnection().getClientConnection().getOutputStream(), true);
+                    out.println("err;Wrong login credentials");
                     getSourceSocket().close();
                 }
             } catch (IOException | SQLException e) {
