@@ -8,7 +8,6 @@ public class ConnectionFactory {
 
     private static ConnectionFactory instance;
     private static Connection connection;
-
     private final String dbURL = "jdbc:mysql://127.0.0.1:3306/jancdb?serverTimezone=UTC&useSSL=false";
     private final String dbUser = "janc";
     private final String dbPwd = "sml12345";
@@ -23,7 +22,6 @@ public class ConnectionFactory {
 
     /**
      * Gets the SQL connection
-     *
      * @return the SQL connection
      */
     public Connection getConnection() {

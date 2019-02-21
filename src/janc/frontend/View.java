@@ -46,6 +46,9 @@ public class View{
                 if (event.getCode() == KeyCode.ENTER) {
                     controller.sendMessage(chat.getTxtfdActualMessage().getText());
                 }
+                if (event.getCode() == KeyCode.BACK_SPACE) {
+                    Client.switchToScene("home");
+                }
             }
         });
         home.getRbutBright().setOnAction(actionEvent -> controller.setColorTheme("bright"));
@@ -53,14 +56,6 @@ public class View{
         chat.getRbutBright().setOnAction(actionEvent -> controller.setColorTheme("bright"));
         chat.getRbutDark().setOnAction(actionEvent -> controller.setColorTheme("dark"));
         chat.getButBackHome().setOnAction(actionEvent -> Client.switchToScene("home"));
-        chat.getSceneChat().setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.BACK_SPACE) {
-                    Client.switchToScene("home");
-                }
-            }
-        });
     }
 
     /**

@@ -1,6 +1,7 @@
 package janc.frontend;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -40,8 +41,10 @@ public class Client extends Application{
             File file = new File("resources/chats/newestChat.txt");
             FileWriter fr = null;
             try {
-                fr = new FileWriter(file);
-                fr.write(view.getChat().getMessages());
+                if (!view.getChat().getMessages().equals(null)) {
+                    fr = new FileWriter(file);
+                    fr.write(view.getChat().getMessages());
+                }
             } catch (IOException io) {
                 System.out.println("Writing failed!");
             } finally {
@@ -51,6 +54,8 @@ public class Client extends Application{
                     System.out.println("Writing failed!");
                 }
             }
+            Platform.exit();
+            System.exit(0);
         });
     }
 
